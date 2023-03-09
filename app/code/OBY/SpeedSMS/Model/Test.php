@@ -31,7 +31,7 @@ class Test implements CustomInterface
         $response = ['success' => false];
         try {
             // Implement Your Code here
-            $response = ['success' => true, 'message' => $value, 'config' => $this->getConfigValue('ahamove/secret_key')];
+            $response = ['success' => true, 'message' => $value, 'config' => $this->getConfigValue('speedsms/secret_key')];
         } catch (\Exception $e) {
             $response = ['success' => false, 'message' => $e->getMessage()];
             $this->logger->info($e->getMessage());
