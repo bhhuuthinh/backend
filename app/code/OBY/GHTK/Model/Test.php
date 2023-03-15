@@ -1,8 +1,8 @@
 <?php
 
-namespace OBY\SpeedSMS\Model;
+namespace OBY\GHTK\Model;
 
-use OBY\SpeedSMS\Api\CustomInterface;
+use OBY\GHTK\Api\CustomInterface;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 

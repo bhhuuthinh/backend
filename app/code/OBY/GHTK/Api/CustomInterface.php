@@ -1,5 +1,5 @@
 <?php
-namespace OBY\SpeedSMS\Api; 
+namespace OBY\GHTK\Api; 
 
 interface CustomInterface
 {

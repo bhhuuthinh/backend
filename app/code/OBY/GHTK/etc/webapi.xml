@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
-    <route method="POST" url="/V1/oby/speed-sms/test/">
-        <service class="OBY\SpeedSMS\Api\CustomInterface" method="getData" />
+    <route method="POST" url="/V1/oby/ghtk/test/">
+        <service class="OBY\GHTK\Api\CustomInterface" method="getData" />
         <resources>
             <resource ref="anonymous"/>
         </resources>
