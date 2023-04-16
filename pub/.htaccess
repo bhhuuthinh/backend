@@ -120,6 +120,10 @@
 ## Enable rewrites
 
     Options +FollowSymLinks
+    Header add Access-Control-Allow-Origin "*"
+    Header add Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header add Access-Control-Allow-Headers "origin, content-type, accept, authorization"
+
     RewriteEngine on
 
 ############################################
