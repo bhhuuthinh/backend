@@ -10,7 +10,6 @@ final class GMomo_Status {
 class GMomo
 {
     public static $key = "momo";
-    public $accessCode;
 
     public $merchant_url;
 
@@ -40,8 +39,8 @@ class GMomo
         $http           = new HTTP();
         $http->url      = $this->merchant_url;
         $http->headers  = [
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($request_json)
+            'Content-Type'  => 'application/json',
+            'Content-Length'=> strlen(json_encode($request_json)),
         ];
 
         $result = $http->post('/v2/gateway/api/create', $request_json);
@@ -62,15 +61,14 @@ class GMomo
     protected function getPayload(){
         $payload = [
             'partnerCode'   => $this->partnerCode,
-            'accessKey'     => $this->accessKey,
+            'requestId'     => time() . "",
+            'amount'        => $this->amount,
             'orderId'       => $this->orderId,
             'orderInfo'     => $this->orderId,
-            'amount'        => $this->amount,
-            'ipnUrl'        => $this->ipnUrl,
             'redirectUrl'   => $this->redirectUrl,
+            'ipnUrl'        => $this->ipnUrl,
             'requestType'   => 'captureWallet',
             'extraData'     => '',
-            'requestId'     => time() . "",
         ];
 
         return $payload;
@@ -78,9 +76,10 @@ class GMomo
 
     public function pay($params = null){
         $payload                = $this->getPayload();
-        $payload['lang']        = 'vi';
         $payload['signature']   = $this->generateSignature($payload);
-        $result                 = $this->execPostRequest(json_encode($payload));
+        $payload['lang']        = 'vi';
+        $result                 = $this->execPostRequest($payload);
+        
         $this->process3d_url    = $result->payUrl;
     }
 
@@ -99,7 +98,7 @@ class GMomo
         $extraData      = $_GET["extraData"];
         $m2signature    = $_GET["signature"]; //MoMo signature
 
-        $rawHash = "accessKey=" . $this->accessCode . "&amount=" . $amount . "&extraData=" . $extraData . "&message=" . $message . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo .
+        $rawHash = "accessKey=" . $this->accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&message=" . $message . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo .
             "&orderType=" . $orderType . "&partnerCode=" . $partnerCode . "&payType=" . $payType . "&requestId=" . $requestId . "&responseTime=" . $responseTime . "&resultCode=" .$resultCode .
             "&transId=" .$transId;
         $partnerSignature = hash_hmac("sha256", $rawHash, $this->secret_key);
@@ -140,9 +139,10 @@ class GMomo
 
     public function generateSignature(array $data): string
     {
-        $data['accessKey']  = $this->accessCode;
+        $data['accessKey']  = $this->accessKey;
         ksort($data);
-        $query = http_build_query($data);
+        $query  = http_build_query($data);
+        $query  = urldecode($query);
         return hash_hmac("sha256", $query, $this->secret_key);
     }
 }

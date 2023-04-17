@@ -4,8 +4,9 @@ namespace OBY\Momo\Model;
 
 use OBY\Momo\Api\ApiInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DB\LoggerInterface;
-use Magento\Sales\Api\OrderRepositoryInterface;
+use Magento\Sales\Model\Order;
 
 class Service implements ApiInterface
 {
@@ -13,11 +14,6 @@ class Service implements ApiInterface
      * @var ScopeConfigInterface
      */
     protected $scopeConfig;
-
-    /**
-     * @var OrderRepositoryInterface
-     */
-    private $orderRepository;
 
     /**
      * @var LoggerInterface
@@ -39,16 +35,21 @@ class Service implements ApiInterface
     {
         try {
             // Implement Your Code here
-            $order      = $this->orderRepository->get($orderId);
+            /** @var Order $order*/
+            $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
 
             $config     = [];
-            $config['partnerCode'] = $this->getConfigValue('merchant_name');
+            $config['partnerCode'] = $this->getConfigValue('partner_code');
             $config['accessKey']   = $this->getConfigValue('access_key');
             $config['secret_key']  = $this->getConfigValue('secret_key');
             $config['orderId']     = $orderId;
             $config['amount']      = $order->getTotalDue();
-            $config['ipnUrl']      = '';
-            $config['redirectUrl'] = '';
+            $config['ipnUrl']      = 'http://13.212.189.157/';
+            $config['redirectUrl'] = 'http://13.212.189.157/';
+            
+            // Production: https://payment.momo.vn
+            // Sandbox: https://test-payment.momo.vn
+            $config['merchant_url'] = 'https://test-payment.momo.vn';
 
             $payment    = new GMomo($config);
             $payment->pay();

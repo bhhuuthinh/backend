@@ -9,5 +9,8 @@ interface ApiInterface
      */
     public function captureWallet($orderId);
 
+    /**
+     * @return void
+    */
     public function ipn();
 }

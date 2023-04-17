@@ -65,12 +65,12 @@ class HTTP
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => is_array($params) ? json_encode($params) : '',
+            CURLOPT_POSTFIELDS => is_array($params) ? json_encode($params) : $params,
         ];
 
         curl_setopt_array($curl, $curlopt_array);
         $responseText = curl_exec($curl);
-
+        
         // Then, after your curl_exec call:
         $errorMessage = curl_error($curl);
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE );
