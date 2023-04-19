@@ -49,7 +49,7 @@ class Service implements ApiInterface
             
             // Production: https://payment.momo.vn
             // Sandbox: https://test-payment.momo.vn
-            $config['merchant_url'] = 'https://test-payment.momo.vn';
+            $config['merchant_url'] = $this->getConfigValue('sandbox_flag') == 1 ? $this->getConfigValue('sandbox_payment_url') : $this->getConfigValue('payment_url');
 
             $payment    = new GMomo($config);
             $payment->pay();

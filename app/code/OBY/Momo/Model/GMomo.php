@@ -61,14 +61,15 @@ class GMomo
     protected function getPayload(){
         $payload = [
             'partnerCode'   => $this->partnerCode,
-            'requestId'     => time() . "",
-            'amount'        => $this->amount,
+            'accessKey'     => $this->accessKey,
             'orderId'       => $this->orderId,
             'orderInfo'     => $this->orderId,
-            'redirectUrl'   => $this->redirectUrl,
+            'amount'        => $this->amount,
             'ipnUrl'        => $this->ipnUrl,
+            'redirectUrl'   => $this->redirectUrl,
             'requestType'   => 'captureWallet',
             'extraData'     => '',
+            'requestId'     => time() . "",
         ];
 
         return $payload;
@@ -76,10 +77,11 @@ class GMomo
 
     public function pay($params = null){
         $payload                = $this->getPayload();
-        $payload['signature']   = $this->generateSignature($payload);
+        $signature              = $this->generateSignature($payload);
         $payload['lang']        = 'vi';
+        $payload['signature']   = $signature;
+
         $result                 = $this->execPostRequest($payload);
-        
         $this->process3d_url    = $result->payUrl;
     }
 
