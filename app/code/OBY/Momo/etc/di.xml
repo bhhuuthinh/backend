@@ -1,4 +1,29 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="OBY\Momo\Api\ApiInterface" type="OBY\Momo\Model\Service"/>
+    <virtualType name="MomoConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">momo</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MomoFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="string">momo</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Boolfly\MomoWallet\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">MomoValueHandlerPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MomoValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">MomoDefaultValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MomoDefaultValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">MomoConfig</argument>
+        </arguments>
+    </virtualType>
 </config>
