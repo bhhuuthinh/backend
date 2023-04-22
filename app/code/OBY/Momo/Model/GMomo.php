@@ -82,6 +82,7 @@ class GMomo
         $payload['signature']   = $signature;
 
         $result                 = $this->execPostRequest($payload);
+
         $this->process3d_url    = $result->payUrl;
     }
 
