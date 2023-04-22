@@ -2,6 +2,7 @@
 
 namespace OBY\Momo\Model;
 
+use Exception;
 use OBY\Momo\Api\ApiInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\ObjectManager;
@@ -54,10 +55,14 @@ class Service implements ApiInterface
             $payment    = new GMomo($config);
             $payment->pay();
 
-            $response = [
-                'success' => true,
-                'process3d_url' => $payment->process3d_url,
-            ];
+            if($payment->status == GMomo_Status::SUCCESS){
+                $response = [
+                    'success' => true,
+                    'process3d_url' => $payment->process3d_url,
+                ];
+            } else {
+                throw new Exception($payment->failReason);
+            }
         } catch (\Exception $e) {
             $response = [
                 'success' => false, 
