@@ -46,7 +46,7 @@ class HTTP
         return $result;
     }
 
-    /** @return string|false */        
+    /** @return StdClass|false */        
     public function call($method = 'GET', $end_point, $params = null, $query = null)
     {
         sleep($this->delay);
@@ -78,15 +78,17 @@ class HTTP
 
         $response   = [];
         $response['isSuccess']  = 200 <= $httpCode && $httpCode < 300;
+
         if($response['isSuccess']){
             $encode_res = $this->encode($responseText);
             $response['data']  = $encode_res;
         }
         else{
-            $response['data']  = $errorMessage;
+            $response['message']    = $errorMessage;
+            $response['data']  = $this->encode($responseText);
         }
 
-		return json_encode($response);
+		return json_decode(json_encode($response));
     }
 
     /**

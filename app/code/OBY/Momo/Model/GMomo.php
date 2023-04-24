@@ -44,16 +44,16 @@ class GMomo
         ];
 
         $result = $http->post('/v2/gateway/api/create', $request_json);
+        $result->data   = json_decode($result->data);
 
         if($result->isSuccess)
         {
-            return json_decode($result->data);
+            return $result->data;
         }
         else
         {
             $this->status = GMomo_Status::FAIL;
-            $error_msg  = 'System Error.';
-            $this->failReason = $error_msg;
+            $this->failReason = $result->data->message;
             return false;
         }
     }
