@@ -10,6 +10,8 @@ use OBY\GHTK\Model\ApiCall;
 class Shipping extends AbstractGhtk implements CarrierInterface
 {
     const CODE = 'ghtk';
+    const DELIVER_OPTION = 'none';
+
     protected $_code = self::CODE;
     protected $_request;
     protected $_result;
@@ -85,9 +87,13 @@ class Shipping extends AbstractGhtk implements CarrierInterface
 			'province'			=> $request->getDestCity(),
 			'weight'			=> $request->getPackageWeight(),
 			// 'value'				=> 100000,
-			'deliver_option'	=> 'none',
+			'deliver_option'	=> static::DELIVER_OPTION,
         ]);
-		$shipment_fee				= $res->fee->fee;
+		$shipment_fee				= $res->fee->fee ?: -1;
+
+        if($shipment_fee < 0){
+            return false;
+        }
 
         /** @var \Magento\Shipping\Model\Rate\Result $result */
         $result = $this->_rateFactory->create();
