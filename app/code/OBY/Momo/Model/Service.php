@@ -45,8 +45,8 @@ class Service implements ApiInterface
             $config['secret_key']  = $this->getConfigValue('secret_key');
             $config['orderId']     = $orderId;
             $config['amount']      = $order->getTotalDue();
-            $config['ipnUrl']      = 'http://13.212.189.157/';
-            $config['redirectUrl'] = 'http://13.212.189.157/';
+            $config['ipnUrl']      = $this->getConfigValue('ipn_url');
+            $config['redirectUrl'] = $this->getConfigValue('redirect_url');
             
             // Production: https://payment.momo.vn
             // Sandbox: https://test-payment.momo.vn
