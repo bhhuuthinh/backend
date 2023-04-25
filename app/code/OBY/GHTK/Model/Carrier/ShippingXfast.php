@@ -3,13 +3,11 @@ namespace OBY\GHTK\Model\Carrier;
 
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
-use Magento\Ups\Helper\Config;
-use Magento\Framework\Xml\Security;
 use OBY\GHTK\Model\ApiCall;
 
-class Shipping extends AbstractGhtk implements CarrierInterface
+class ShippingXfast extends Shipping implements CarrierInterface
 {
-    const CODE = 'ghtk';
+    const CODE = 'ghtk_xfast';
     protected $_code = self::CODE;
     protected $_request;
     protected $_result;
@@ -21,48 +19,6 @@ class Shipping extends AbstractGhtk implements CarrierInterface
     protected $_errors = [];
     protected $_isFixed = true;
     
-    public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory $rateErrorFactory,
-        \Psr\Log\LoggerInterface $logger,
-        Security $xmlSecurity,
-        \Magento\Shipping\Model\Simplexml\ElementFactory $xmlElFactory,
-        \Magento\Shipping\Model\Rate\ResultFactory $rateFactory,
-        \Magento\Quote\Model\Quote\Address\RateResult\MethodFactory $rateMethodFactory,
-        \Magento\Shipping\Model\Tracking\ResultFactory $trackFactory,
-        \Magento\Shipping\Model\Tracking\Result\ErrorFactory $trackErrorFactory,
-        \Magento\Shipping\Model\Tracking\Result\StatusFactory $trackStatusFactory,
-        \Magento\Directory\Model\RegionFactory $regionFactory,
-        \Magento\Directory\Model\CountryFactory $countryFactory,
-        \Magento\Directory\Model\CurrencyFactory $currencyFactory,
-        \Magento\Directory\Helper\Data $directoryData,
-        \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
-        \Magento\Framework\Locale\FormatInterface $localeFormat,
-        Config $configHelper,
-        array $data = []
-    ) {
-        $this->_localeFormat = $localeFormat;
-        $this->configHelper = $configHelper;
-        parent::__construct(
-            $scopeConfig,
-            $rateErrorFactory,
-            $logger,
-            $xmlSecurity,
-            $xmlElFactory,
-            $rateFactory,
-            $rateMethodFactory,
-            $trackFactory,
-            $trackErrorFactory,
-            $trackStatusFactory,
-            $regionFactory,
-            $countryFactory,
-            $currencyFactory,
-            $directoryData,
-            $stockRegistry,
-            $data
-        );
-    }
-
     protected function _doShipmentRequest(\Magento\Framework\DataObject $request)
     {
     }
@@ -85,7 +41,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
 			'province'			=> $request->getDestCity(),
 			'weight'			=> $request->getPackageWeight(),
 			// 'value'				=> 100000,
-			'deliver_option'	=> 'none',
+			'deliver_option'	=> 'xteam',
         ]);
 		$shipment_fee				= $res->fee->fee;
 

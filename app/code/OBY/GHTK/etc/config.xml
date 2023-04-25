@@ -13,6 +13,17 @@
                 <token_key>5a775d9e7025d69a90b639fc3f45be7f79ffc80b</token_key>
                 <base_url>https://services.giaohangtietkiem.vn</base_url>
             </ghtk>
+            <ghtk_xfast>
+                <active>1</active>
+                <model>OBY\GHTK\Model\Carrier\ShippingXfast</model>
+                <name>XFast</name>
+                <title>Giao Hàng Tiết Kiệm</title>
+                <handling_type>F</handling_type>
+                <sallowspecific>0</sallowspecific>
+                <!-- <specificcountry>VN</specificcountry> -->
+                <token_key>5a775d9e7025d69a90b639fc3f45be7f79ffc80b</token_key>
+                <base_url>https://services.giaohangtietkiem.vn</base_url>
+            </ghtk_xfast>
         </carriers>
     </default>
 </config>
