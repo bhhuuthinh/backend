@@ -77,7 +77,7 @@ class Service implements ApiInterface
 
     public function ipn()
     {
-        
+        return $_POST;
     }
 
     /**
