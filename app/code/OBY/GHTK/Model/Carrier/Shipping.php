@@ -10,6 +10,8 @@ use OBY\GHTK\Model\ApiCall;
 class Shipping extends AbstractGhtk implements CarrierInterface
 {
     const CODE = 'ghtk';
+    const DELIVER_OPTION = 'none';
+
     protected $_code = self::CODE;
     protected $_request;
     protected $_result;
@@ -77,6 +79,11 @@ class Shipping extends AbstractGhtk implements CarrierInterface
             return false;
         }
 
+        // Xfast chỉ áp dụng nội thành HCM và HN
+        if(strtolower($request->getDestCity()) != 'thành phố hồ chí minh' && static::DELIVER_OPTION == 'xteam'){
+            return false;
+        }
+
         $instance   = new ApiCall($this->getConfigData('base_url'), $this->getConfigData('token_key'));
         $res        = $instance->ServicesShipmentFee([
             'pick_address_id'	=> 16927840,
@@ -85,9 +92,13 @@ class Shipping extends AbstractGhtk implements CarrierInterface
 			'province'			=> $request->getDestCity(),
 			'weight'			=> $request->getPackageWeight(),
 			// 'value'				=> 100000,
-			'deliver_option'	=> 'none',
+			'deliver_option'	=> static::DELIVER_OPTION,
         ]);
-		$shipment_fee				= $res->fee->fee;
+		$shipment_fee				= $res->fee->fee ?: -1;
+
+        if($shipment_fee <= 0){
+            return false;
+        }
 
         /** @var \Magento\Shipping\Model\Rate\Result $result */
         $result = $this->_rateFactory->create();
