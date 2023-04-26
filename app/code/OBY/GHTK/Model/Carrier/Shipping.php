@@ -79,6 +79,11 @@ class Shipping extends AbstractGhtk implements CarrierInterface
             return false;
         }
 
+        // Xfast chỉ áp dụng nội thành HCM và HN
+        if(strtolower($request->getDestCity()) != 'thành phố hồ chí minh' && static::DELIVER_OPTION == 'xteam'){
+            return false;
+        }
+
         $instance   = new ApiCall($this->getConfigData('base_url'), $this->getConfigData('token_key'));
         $res        = $instance->ServicesShipmentFee([
             'pick_address_id'	=> 16927840,
@@ -91,7 +96,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
         ]);
 		$shipment_fee				= $res->fee->fee ?: -1;
 
-        if($shipment_fee < 0){
+        if($shipment_fee <= 0){
             return false;
         }
 
