@@ -75,6 +75,9 @@ class Service implements ApiInterface
         return $returnArray;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function ipn()
     {
         return $_POST;
