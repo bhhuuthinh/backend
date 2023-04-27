@@ -91,7 +91,7 @@ class Service implements ApiInterface
         $request   = json_decode($request, true);
         $result_code    = $request['resultCode'];
 
-        if($request['resultCode'] == 0){
+        if($request['resultCode'] == GMomo_Status::SUCCESS){
             // Update order
             return "";
         }
