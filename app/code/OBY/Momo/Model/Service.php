@@ -78,6 +78,7 @@ class Service implements ApiInterface
             $this->logger->log($e->getMessage());
         }
 
+        header('Content-Type: application/json; charset=utf-8');
         die(json_encode($data));
     }
 
