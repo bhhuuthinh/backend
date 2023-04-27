@@ -8,6 +8,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DB\LoggerInterface;
 use Magento\Sales\Model\Order;
+use Magento\Framework\Webapi\Rest\Request;
 
 class Service implements ApiInterface
 {
@@ -21,10 +22,17 @@ class Service implements ApiInterface
      */
     protected $logger;
 
+    /**
+     * @var Request
+     */
+    protected $request;
+
     public function __construct(
+        Request $request,
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig
     ) {
+        $this->request = $request;
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
     }
@@ -71,16 +79,30 @@ class Service implements ApiInterface
             $this->logger->log($e->getMessage());
         }
 
-        $returnArray = json_encode($response);
-        return $returnArray;
+        return $response;
     }
 
     /**
      * @inheritdoc
      */
     public function ipn()
-    {
-        return $_POST;
+    {    
+        $request   = $this->request->getContent();
+        $request   = json_decode($request, true);
+        $result_code    = $request['resultCode'];
+
+        if($request['resultCode'] == 0){
+            // Update order
+            return "";
+        }
+        else{
+            $gateway = new GMomo();
+            $response['resultCode']     = $result_code;
+            $response['message']        = $gateway->getErrorMsg($request['resultCode']);
+            ksort($response);
+            $response['signature']      = $gateway->generateSignature($response);
+            return $response;
+        }
     }
 
     /**

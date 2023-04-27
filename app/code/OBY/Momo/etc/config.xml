@@ -23,7 +23,7 @@
                 <allowspecific>1</allowspecific>
                 <specificcountry>VN</specificcountry>
                 <merchant_name>Momo Partner</merchant_name>
-                <return_url>http://ongbayeu.vn/ket-qua-thanh-toan</return_url>
+                <redirect_url>http://ongbayeu.vn/ket-qua-thanh-toan</redirect_url>
                 <ipn_url>http://13.229.90.199/rest/all/V1/oby/momo/ipn</ipn_url>
                 <credit_memo_prefix>MEMO-</credit_memo_prefix>
                 <payment_action>authorize_capture</payment_action>
