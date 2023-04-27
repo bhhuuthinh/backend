@@ -57,8 +57,8 @@ class GMomo
         $payload = [
             'partnerCode'   => $this->partnerCode,
             'accessKey'     => $this->accessKey,
-            'orderId'       => $this->orderId,
-            'orderInfo'     => $this->orderId,
+            'orderId'       => $this->transactionID,
+            'orderInfo'     => $this->desc,
             'amount'        => $this->amount,
             'ipnUrl'        => $this->ipnUrl,
             'redirectUrl'   => $this->redirectUrl,
@@ -71,6 +71,9 @@ class GMomo
     }
 
     public function pay($params = null){
+        $this->transactionID    = uniqid("GD".time());
+        $this->desc             = "#DH".str_pad($this->orderId, 9, "0", STR_PAD_LEFT);
+
         $payload                = $this->getPayload();
         $signature              = $this->generateSignature($payload);
         $payload['lang']        = 'vi';
@@ -78,7 +81,13 @@ class GMomo
 
         $result                 = $this->execPostRequest($payload);
 
-        $this->process3d_url    = $result->payUrl;
+        if($result->resultCode == GMomo_Status::SUCCESS){
+            $this->process3d_url    = $result->payUrl;
+            return;
+        }
+
+        $this->status = GMomo_Status::FAIL;
+        $this->failReason = $result->message;
     }
 
     public function response($request = null){

@@ -5,12 +5,12 @@ interface ApiInterface
 {
     /**
      * @param string $value
-     * @return string
+     * @return object
      */
     public function captureWallet($orderId);
 
     /**
-     * @return void
+     * @return object
     */
     public function ipn();
 }

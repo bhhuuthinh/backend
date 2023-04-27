@@ -46,12 +46,11 @@ class Service implements ApiInterface
             // Implement Your Code here
             /** @var Order $order*/
             $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
-
             $config     = [];
             $config['partnerCode'] = $this->getConfigValue('partner_code');
             $config['accessKey']   = $this->getConfigValue('access_key');
             $config['secret_key']  = $this->getConfigValue('secret_key');
-            $config['orderId']     = $orderId;
+            $config['orderId']     = $order->getId();
             $config['amount']      = $order->getTotalDue();
             $config['ipnUrl']      = $this->getConfigValue('ipn_url');
             $config['redirectUrl'] = $this->getConfigValue('redirect_url');
@@ -64,7 +63,7 @@ class Service implements ApiInterface
             $payment->pay();
 
             if($payment->status == GMomo_Status::SUCCESS){
-                $response = [
+                $data = [
                     'success' => true,
                     'process3d_url' => $payment->process3d_url,
                 ];
@@ -72,14 +71,14 @@ class Service implements ApiInterface
                 throw new Exception($payment->failReason);
             }
         } catch (\Exception $e) {
-            $response = [
+            $data = [
                 'success' => false, 
                 'message' => $e->getMessage()
             ];
             $this->logger->log($e->getMessage());
         }
 
-        return $response;
+        die(json_encode($data));
     }
 
     /**
