@@ -63,7 +63,9 @@ class GMomo
             'ipnUrl'        => $this->ipnUrl,
             'redirectUrl'   => $this->redirectUrl,
             'requestType'   => 'captureWallet',
-            'extraData'     => '',
+            'extraData'     => base64_encode(json_encode([
+                'orderId'  => $this->orderId,
+            ])),
             'requestId'     => time() . "",
         ];
 

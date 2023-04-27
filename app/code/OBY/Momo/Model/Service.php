@@ -9,6 +9,8 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DB\LoggerInterface;
 use Magento\Sales\Model\Order;
 use Magento\Framework\Webapi\Rest\Request;
+use Magento\Sales\Api\OrderRepositoryInterface;
+use Magento\Sales\Model\OrderRepository;
 
 class Service implements ApiInterface
 {
@@ -27,14 +29,21 @@ class Service implements ApiInterface
      */
     protected $request;
 
+    /**
+     * @var OrderRepositoryInterface
+     */
+    protected $orderRepository;
+
     public function __construct(
         Request $request,
         LoggerInterface $logger,
-        ScopeConfigInterface $scopeConfig
+        ScopeConfigInterface $scopeConfig,
+        OrderRepositoryInterface $orderRepository
     ) {
         $this->request = $request;
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
+        $this->orderRepository = $orderRepository;
     }
 
     /**
@@ -89,10 +98,25 @@ class Service implements ApiInterface
     {    
         $request   = $this->request->getContent();
         $request   = json_decode($request, true);
+
         $result_code    = $request['resultCode'];
+
+        header('Content-Type: application/json; charset=utf-8');
 
         if($request['resultCode'] == GMomo_Status::SUCCESS){
             // Update order
+            $extra_data     = $request['extraData'];
+            $extra_data     = base64_decode($extra_data);
+            $extra_data     = json_decode($extra_data);
+
+            $orderId       = $extra_data['orderId'];
+            /** @var Order $order*/
+            $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
+            $order->setStatus(Order::STATE_PROCESSING);
+
+            $this->orderRepository->save($order);
+
+            header("HTTP/1.1 204 NO CONTENT");
             return "";
         }
         else{
@@ -101,7 +125,8 @@ class Service implements ApiInterface
             $response['message']        = $gateway->getErrorMsg($request['resultCode']);
             ksort($response);
             $response['signature']      = $gateway->generateSignature($response);
-            return $response;
+
+            die(json_encode($response));
         }
     }
 
