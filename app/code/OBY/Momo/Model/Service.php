@@ -88,7 +88,7 @@ class Service implements ApiInterface
         }
 
         header('Content-Type: application/json; charset=utf-8');
-        return json_encode($data);
+        return [$data];
     }
 
     /**
@@ -126,7 +126,7 @@ class Service implements ApiInterface
             ksort($response);
             $response['signature']      = $gateway->generateSignature($response);
 
-            return json_encode($response);
+            die(json_encode($response));
         }
     }
 
