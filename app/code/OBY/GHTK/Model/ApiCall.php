@@ -11,6 +11,7 @@ class ApiCall
     private $http;
 
     private const ACTION_SERVICES_SHIPMENT_FEE = '/services/shipment/fee';
+    private const ACTION_SERVICES_CREATE_ORDER = '/services/shipment/order/?ver=1.5';
 
     private function buildHeaders(){
         return [
@@ -51,6 +52,11 @@ class ApiCall
     /** @return mixed */
     public function ServicesShipmentFee($params){
         return $this->get(self::ACTION_SERVICES_SHIPMENT_FEE, $params);
+    }
+
+    /** @return mixed */
+    public function ServicesCreateOrder($params){
+        return $this->get(self::ACTION_SERVICES_CREATE_ORDER, $params);
     }
 
 }
