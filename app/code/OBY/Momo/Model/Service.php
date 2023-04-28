@@ -103,11 +103,11 @@ class Service implements ApiInterface
 
         header('Content-Type: application/json; charset=utf-8');
 
-        if($request['resultCode'] == GMomo_Status::SUCCESS){
+        if($result_code == GMomo_Status::SUCCESS){
             // Update order
             $extra_data     = $request['extraData'];
             $extra_data     = base64_decode($extra_data);
-            $extra_data     = json_decode($extra_data);
+            $extra_data     = json_decode($extra_data, true);
 
             $orderId       = $extra_data['orderId'];
             /** @var Order $order*/
@@ -116,8 +116,8 @@ class Service implements ApiInterface
 
             $this->orderRepository->save($order);
 
-            header("HTTP/1.1 204 NO CONTENT");
-            return "";
+            header("HTTP/1.1 204");
+            exit;
         }
         else{
             $gateway = new GMomo();
