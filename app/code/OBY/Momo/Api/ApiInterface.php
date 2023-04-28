@@ -4,13 +4,13 @@ namespace OBY\Momo\Api;
 interface ApiInterface
 {
     /**
-     * @param string $value
-     * @return object
+     * @param string $orderId
+     * @return string
      */
     public function captureWallet($orderId);
 
     /**
-     * @return object
+     * @return string
     */
     public function ipn();
 }
