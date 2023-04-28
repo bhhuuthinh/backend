@@ -56,7 +56,7 @@ class ApiCall
 
     /** @return mixed */
     public function ServicesCreateOrder($params){
-        return $this->get(self::ACTION_SERVICES_CREATE_ORDER, $params);
+        return $this->post(self::ACTION_SERVICES_CREATE_ORDER, $params);
     }
 
 }

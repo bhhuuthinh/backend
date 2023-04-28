@@ -54,7 +54,7 @@ class Service implements ApiInterface
         try {
             // Implement Your Code here
             /** @var Order $order*/
-            $order      = ObjectManager::getInstance()->create(Order::class)->load($orderId);
+            $order      = $this->orderRepository->get($orderId);
             
             $items      = $order->getItems();
             $products   = [];
@@ -77,7 +77,7 @@ class Service implements ApiInterface
             $_order["province"]         = $order->getShippingAddress()->getCity();
             $_order["district"]         = $order->getShippingAddress()->getRegion();
             $_order["ward"]             = $order->getShippingAddress()->getStreetLine(2);
-            $_order["hamlet"]           = 'Khác';
+            $_order["hamlet"]           = 'Khac';
             $_order["is_freeship"]      = 0;
             $_order["pick_date"]        = $order;
             $_order["pick_money"]       = $order->getShippingAmount();
@@ -87,15 +87,13 @@ class Service implements ApiInterface
             // $_order["pick_session"]     = $order;
             // $_order["tags"]             = $order;
 
-            var_dump($_order); die();
-
-
             $instance   = new ApiCall($this->getConfigValue('base_url'), $this->getConfigValue('token_key'));
             $res        = $instance->ServicesCreateOrder([
                 "products"  => $products,
                 "order"  => $order,
             ]);
-
+            return json_encode($res);
+            
             $payment = new stdClass();
             if($payment->status == 0){
                 $data = [
