@@ -1,0 +1,95 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Blog
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\Blog\Block\Frontend;
+use Mageplaza\Blog\Model\Post;
+
+/** @var Frontend $block */
+?>
+<div class="mp-blog-rss">
+    <a href="<?= $block->escapeUrl($block->getRssUrl('post/rss')) ?>" class="bb-rss-icon">
+        <img src="<?= $block->escapeUrl($block->getViewFileUrl('Mageplaza_Blog::media/images/rss.png')) ?>"
+             width="16px">
+    </a>
+</div>
+<div class="post-list-content" id="mpblog-list-container">
+    <?php $postCollection = $block->getPostCollection(); ?>
+    <?php if ($postCollection && $postCollection->getSize()) : ?>
+        <div class="post-list-body">
+            <?php $i = 1 ?>
+            <?php /** @var Post $post */
+            foreach ($postCollection as $post) : ?>
+                <div class="post-list-item col-mp<?= $block->isGridView()
+                    ? ' post-item-grid mp-6 mp-xs-12' : ' post-item-list mp-12'; ?>">
+                    <div class="post-item-wraper">
+                        <?php if ($post->getImage()) : ?>
+                            <div class="post-image">
+                                <a href="<?= $block->escapeUrl($post->getUrl()) ?>">
+                                    <img class="img-responsive"
+                                         src="<?= $block->escapeUrl($block->resizeImage($post->getImage(), '400x')) ?>"
+                                         alt="<?= $block->escapeHtml($post->getName()); ?>"/>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                        <div class="post-info-wraper">
+                            <h2 class="mp-post-title">
+                                <a class="post-link-title" title="<?= $block->escapeHtml($post->getName()); ?>"
+                                   href="<?= $block->escapeUrl($post->getUrl()) ?>">
+                                    <?= $block->escapeHtml($post->getName()) ?>
+                                </a>
+                            </h2>
+                            <div class="mp-post-info">
+                                <?= /** @noEscape */ $block->getPostInfo($post) ?>
+                            </div>
+                            <div class="post-short-description">
+                                <p><?= /** @noEscape */ $block->maxShortDescription($post->getShortDescription()) ?></p>
+                            </div>
+                            <div class="mp-clearfix"></div>
+                            <div class="mp-post-meta-info mp-alignright">
+                                <div class="actions">
+                                    <a class="mp-read-more" href="<?= $block->escapeUrl($post->getUrl()) ?>"
+                                       title="<?= $block->escapeHtmlAttr(__('Read More')) ?>">
+                                        <?= $block->escapeHtml(__('Read More')) ?>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php $i++; ?>
+                <?php if ($i % 2 == 0) : ?>
+                    <div class="mp-clear"></div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <div class="mp-clear"></div>
+        </div>
+        <?= $block->getPagerHtml() ?>
+    <?php else : ?>
+        <?= $block->escapeHtml(__('There are no posts at this moment')) ?>
+    <?php endif; ?>
+    <?= $block->getChildHtml('additional'); ?>
+</div>
+<script>
+    require(['jquery'], function ($) {
+        $('.limiter').css('float', 'right');
+    });
+</script>
+

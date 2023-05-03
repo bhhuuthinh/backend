@@ -1,0 +1,80 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Blog
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+use Mageplaza\Blog\Block\Post\RelatedPost;
+use Mageplaza\Blog\Model\ResourceModel\Post\Collection;
+
+/** @var Collection $posts */
+/** @var RelatedPost $block */
+$posts = $block->getRelatedPostList();
+if ($posts && $block->isEnabledBlog()) : ?>
+    <h2><?= $posts->getSize() ? $block->escapeHtml(__('Related Posts')) : $block->escapeHtml(__('No Related Posts')) ?></h2>
+    <?php if ($block->getRelatedMode()) : ?>
+        <div class="mp-blog-owl-carousel owl-carousel owl-theme">
+            <?php foreach ($posts as $post) : ?>
+                <div class="item post-list-item col-mp post-item-list mp-4">
+                    <div class="post-item-wraper">
+                        <div class="post-info-wraper">
+                            <a href="<?= $block->escapeUrl($post->getUrl()) ?>">
+                                <img class="img-responsive"
+                                     src="<?= $block->escapeUrl($block->resizeImage($post->getImage(), '400x')) ?>"
+                                     alt="<?= $block->escapeHtml($post->getName()); ?>"/>
+                            </a>
+                            <h2 class="mp-post-title" style="margin: 20px 0;">
+                                <a class="post-link-title" title="<?= $block->escapeHtml($post->getName()); ?>"
+                                   href="<?= $block->escapeUrl($post->getUrl()) ?>">
+                                    <?= $block->escapeHtml($post->getName()) ?>
+                                </a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <script>
+            require([
+                'jquery',
+                'owlCarousel'
+            ], function ($) {
+                'use strict';
+                $(document).ready(function () {
+                    $('.mp-blog-owl-carousel.owl-carousel').owlCarousel({
+                        items: 2,
+                        loop: false,
+                        margin: 10,
+                        responsive: {
+                            600: {
+                                items: 4
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    <?php else : ?>
+        <ul>
+            <?php foreach ($posts as $post) : ?>
+                <li>
+                    <a href="<?= $block->escapeUrl($post->getUrl()) ?>"><?= $block->escapeHtml($post->getName()) ?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+<?php endif; ?>
