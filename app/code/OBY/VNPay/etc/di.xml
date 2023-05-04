@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="OBY\VNPay\Api\ApiInterface" type="OBY\VNPay\Model\Service"/>
+    <virtualType name="VNPayConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">momo</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="VNPayFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="string">momo</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">VNPayValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">VNPayValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">VNPayCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="VNPayCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <!-- <item name="initialize" xsi:type="string">Boolfly\VNPayWallet\Gateway\Command\InitializeCommand</item>
+                <item name="get_pay_url" xsi:type="string">Boolfly\VNPayWallet\Gateway\Command\GetPayUrlCommand</item>
+                <item name="capture" xsi:type="string">Magento\Payment\Gateway\Command\NullCommand</item>
+                <item name="ipn" xsi:type="string">Boolfly\VNPayWallet\Gateway\Command\CompleteCommand</item>
+                <item name="complete" xsi:type="string">Boolfly\VNPayWallet\Gateway\Command\CompleteCommand</item>
+                <item name="cancel_order" xsi:type="string">Magento\Payment\Gateway\Command\NullCommand</item>
+                <item name="refund" xsi:type="string">VNPayRefundGatewayCommand</item> -->
+
+                <item name="initialize" xsi:type="string">Magento\Payment\Gateway\Command\NullCommand</item>
+
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="VNPayValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">VNPayDefaultValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="VNPayDefaultValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">VNPayConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="VNPayValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <!-- <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="country" xsi:type="string">VNPayCountryValidator</item>
+            </argument>
+        </arguments> -->
+    </virtualType>
+    <virtualType name="VNPayCountryValidator" type="Magento\Payment\Gateway\Validator\CountryValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">VNPayConfig</argument>
+        </arguments>
+    </virtualType>
+</config>

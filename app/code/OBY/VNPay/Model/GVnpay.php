@@ -1,0 +1,118 @@
+<?php
+
+namespace OBY\VNPay\Model;
+
+class GVnpay
+{
+    public static $key = "vnpay";
+
+    public $merchant_url;
+
+    public $clientId;
+    public $accessKey;
+    public $orderId;
+    public $orderInfo;
+    public $amount;
+    public $ipnUrl;
+    public $redirectUrl;
+
+    public $secret_key;
+
+    public $process3d_url;
+    public $failReason;
+    public $status;
+
+    public $transactionID;
+    public $transactionDate;
+    public $desc;
+
+    public $cardType;
+
+    public function __construct($data = null)
+    {
+        foreach ($data as $key   => $value) {
+            $this->{$key}   = $value;
+        }
+    }
+
+    public function pay($params = null)
+    {
+        $inputData = array(
+            "vnp_Version"       => "2.0.0",
+            "vnp_TmnCode"       => $this->clientId,
+            "vnp_Amount"        => round($this->amount) * 100,
+            "vnp_Command"       => "pay",
+            "vnp_CreateDate"    => date('YmdHis'),
+            "vnp_CurrCode"      => 'VND',
+            "vnp_IpAddr"        => $_SERVER['REMOTE_ADDR'],
+            "vnp_Locale"        => 'vn',
+            "vnp_OrderInfo"     => $this->desc,
+            "vnp_OrderType"     => 'Sale',
+            "vnp_ReturnUrl"     => $this->redirectUrl,
+            // "vnp_SessionID"     => $this->sessionID,
+            "vnp_TxnRef"        => date('YmdHis').'_'.$this->orderId,
+        );
+
+        ksort($inputData);
+        $query  = http_build_query($inputData);
+        $query  = urldecode($query);
+
+        $vnp_Url = $this->merchant_url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            $vnpSecureHash = hash('sha256', $this->secret_key . $query);
+            $vnp_Url .= '&vnp_SecureHash=' . $vnpSecureHash;
+        }
+        $this->process3d_url = $vnp_Url;
+    }
+
+    public function response($request = null)
+    {
+        $inputData = array();
+        $data = $request;
+        foreach ($data as $key => $value) {
+            if (substr($key, 0, 4) == "vnp_") {
+                $inputData[$key] = $value;
+            }
+        }
+        $this->transactionID    = $inputData['vnp_TransactionNo'];
+        $this->transactionDate  = strtotime($inputData['vnp_PayDate']);
+        $this->status           = $inputData['vnp_ResponseCode'];
+        $this->cardType         = $inputData['vnp_CardType'];
+
+        if ($inputData['vnp_ResponseCode'] != GVnpay_Status::SUCCESS) {
+            $message = "Mã lỗi: " . $inputData['vnp_ResponseCode'];
+            $reasonCodeText = $this->getErrorMsg($inputData['vnp_ResponseCode']);
+            $message .= ", Message: $reasonCodeText.";
+            $this->failReason = $message;
+        }
+    }
+
+    public function getErrorMsg($params = null)
+    {
+        $errorList = [
+            GVnpay_Status::SUCCESSWITHWARNING => 'Trừ tiền thành công. Giao dịch bị nghi ngờ (liên quan tới lừa đảo, giao dịch bất thường).',
+            '09' => 'Giao dịch không thành công do: Thẻ/Tài khoản của khách hàng chưa đăng ký dịch vụ InternetBanking tại ngân hàng.',
+            '10' => 'Giao dịch không thành công do: Khách hàng xác thực thông tin thẻ/tài khoản không đúng quá 3 lần',
+            '11' => 'Giao dịch không thành công do: Đã hết hạn chờ thanh toán. Xin quý khách vui lòng thực hiện lại giao dịch.',
+            '12' => 'Giao dịch không thành công do: Thẻ/Tài khoản của khách hàng bị khóa.',
+            '13' => 'Giao dịch không thành công do Quý khách nhập sai mật khẩu xác thực giao dịch (OTP). Xin quý khách vui lòng thực hiện lại giao dịch.',
+            GVnpay_Status::FAIL => 'Giao dịch không thành công do: Khách hàng hủy giao dịch',
+            '51' => 'Giao dịch không thành công do: Tài khoản của quý khách không đủ số dư để thực hiện giao dịch.',
+            '65' => 'Giao dịch không thành công do: Tài khoản của Quý khách đã vượt quá hạn mức giao dịch trong ngày.',
+            '75' => 'Ngân hàng thanh toán đang bảo trì.',
+            '79' => 'Giao dịch không thành công do: KH nhập sai mật khẩu thanh toán quá số lần quy định. Xin quý khách vui lòng thực hiện lại giao dịch',
+            '99' => 'Các lỗi khác (lỗi còn lại, không có trong danh sách mã lỗi đã liệt kê)',
+
+        ];
+
+        return isset($errorList[$params]) ? $errorList[$params] : $this->failReason;
+    }
+
+    public function confirm($params = null)
+    {
+        if (is_null($params)) return;
+
+        $new_status = $params;
+        $this->status    = $new_status;
+    }
+}
