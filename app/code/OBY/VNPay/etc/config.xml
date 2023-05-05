@@ -26,8 +26,8 @@
                 <ipn_url>http://13.229.90.199/rest/all/V1/oby/momo/ipn</ipn_url>
                 <credit_memo_prefix>MEMO-</credit_memo_prefix>
                 <payment_action>authorize_capture</payment_action>
-                <payment_url>https://payment.momo.vn</payment_url>
-                <sandbox_payment_url>https://test-payment.momo.vn</sandbox_payment_url>
+                <payment_url>https://vnpayment.vn/paymentv2/vpcpay.html</payment_url>
+                <sandbox_payment_url>https://sandbox.vnpayment.vn/paymentv2/vpcpay.html</sandbox_payment_url>
                 <can_initialize>1</can_initialize>
                 <can_authorize>0</can_authorize>
                 <can_capture>1</can_capture>

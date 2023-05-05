@@ -77,8 +77,8 @@ class GVnpay
         }
 
         $vnp_Url = $this->merchant_url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);
+        if (isset($this->secret_key)) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $this->secret_key);
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
         $this->status   = GVnpay_Status::SUCCESS;
