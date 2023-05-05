@@ -81,7 +81,7 @@ class GVnpay
             $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
-
+        $this->status   = GVnpay_Status::SUCCESS;
         $this->process3d_url = $vnp_Url;
     }
 
