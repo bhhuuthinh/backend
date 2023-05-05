@@ -38,8 +38,8 @@ class GVnpay
     public function pay($params = null)
     {
         //Expire
-        $startTime = date("YmdHis");
-        $expire = date('YmdHis',strtotime('+15 minutes',strtotime($startTime)));
+        // $startTime = date("YmdHis");
+        // $expire = date('YmdHis',strtotime('+15 minutes',strtotime($startTime)));
         $vnp_TxnRef = rand(1, 10000); //Mã giao dịch thanh toán tham chiếu của merchant
 
         $inputData = array(
@@ -55,7 +55,7 @@ class GVnpay
             "vnp_OrderType" => "other",
             "vnp_ReturnUrl" => $this->Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
-            "vnp_ExpireDate" => $expire
+            // "vnp_ExpireDate" => $expire
         );
 
         // if (isset($vnp_BankCode) && $vnp_BankCode != "") {
