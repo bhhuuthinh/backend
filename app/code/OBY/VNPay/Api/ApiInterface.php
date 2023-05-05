@@ -7,7 +7,7 @@ interface ApiInterface
      * @param string $orderId
      * @return string
      */
-    public function captureWallet($orderId);
+    public function createOrder($orderId);
 
     /**
      * @return string

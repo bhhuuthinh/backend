@@ -21,12 +21,8 @@
                 <field id="title" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Title</label>
                 </field>
-                <field id="partner_code" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Partner Code</label>
-                </field>
-                <field id="access_key" translate="label" type="obscure" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Access Key</label>
-                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                <field id="vnp_TmnCode" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Terminal ID</label>
                 </field>
                 <field id="secret_key" translate="label" type="obscure" sortOrder="33" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Secret Key</label>
@@ -39,11 +35,11 @@
                     <label>Sandbox Mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="redirect_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Redirect URL</label>
+                <field id="vnp_Returnurl" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Return URL</label>
                 </field>
-                <field id="ipn_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>IPN URL</label>
+                <field id="vnp_apiUrl" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Api URL</label>
                 </field>
                 <field id="credit_memo_prefix" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
                     <label>Credit memo prefix</label>

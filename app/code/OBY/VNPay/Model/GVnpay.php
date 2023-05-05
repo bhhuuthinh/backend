@@ -8,13 +8,13 @@ class GVnpay
 
     public $merchant_url;
 
-    public $clientId;
+    public $TmnCode;
     public $accessKey;
     public $orderId;
     public $orderInfo;
     public $amount;
     public $ipnUrl;
-    public $redirectUrl;
+    public $Returnurl;
 
     public $secret_key;
 
@@ -37,31 +37,51 @@ class GVnpay
 
     public function pay($params = null)
     {
+        //Expire
+        $startTime = date("YmdHis");
+        $expire = date('YmdHis',strtotime('+15 minutes',strtotime($startTime)));
+        $vnp_TxnRef = rand(1, 10000); //Mã giao dịch thanh toán tham chiếu của merchant
+
         $inputData = array(
-            "vnp_Version"       => "2.0.0",
-            "vnp_TmnCode"       => $this->clientId,
-            "vnp_Amount"        => round($this->amount) * 100,
-            "vnp_Command"       => "pay",
-            "vnp_CreateDate"    => date('YmdHis'),
-            "vnp_CurrCode"      => 'VND',
-            "vnp_IpAddr"        => $_SERVER['REMOTE_ADDR'],
-            "vnp_Locale"        => 'vn',
-            "vnp_OrderInfo"     => $this->desc,
-            "vnp_OrderType"     => 'Sale',
-            "vnp_ReturnUrl"     => $this->redirectUrl,
-            // "vnp_SessionID"     => $this->sessionID,
-            "vnp_TxnRef"        => date('YmdHis').'_'.$this->orderId,
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $this->TmnCode,
+            "vnp_Amount" => round($this->amount) * 100,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $_SERVER['REMOTE_ADDR'],
+            "vnp_Locale" => 'vn',
+            "vnp_OrderInfo" => "Thanh toan GD:" + $vnp_TxnRef,
+            "vnp_OrderType" => "other",
+            "vnp_ReturnUrl" => $this->Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef,
+            "vnp_ExpireDate" => $expire
         );
 
+        // if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+        //     $inputData['vnp_BankCode'] = $vnp_BankCode;
+        // }
+
         ksort($inputData);
-        $query  = http_build_query($inputData);
-        $query  = urldecode($query);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
 
         $vnp_Url = $this->merchant_url . "?" . $query;
         if (isset($vnp_HashSecret)) {
-            $vnpSecureHash = hash('sha256', $this->secret_key . $query);
-            $vnp_Url .= '&vnp_SecureHash=' . $vnpSecureHash;
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);
+            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
+
         $this->process3d_url = $vnp_Url;
     }
 

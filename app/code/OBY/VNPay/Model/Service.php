@@ -49,20 +49,19 @@ class Service implements ApiInterface
     /**
      * @inheritdoc
      */
-    public function captureWallet($orderId)
+    public function createOrder($orderId)
     {
         try {
             // Implement Your Code here
             /** @var Order $order*/
             $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
             $config     = [];
-            $config['partnerCode'] = $this->getConfigValue('partner_code');
-            $config['accessKey']   = $this->getConfigValue('access_key');
+            $config['TmnCode'] = $this->getConfigValue('vnp_TmnCode');
             $config['secret_key']  = $this->getConfigValue('secret_key');
             $config['orderId']     = $order->getId();
             $config['amount']      = $order->getTotalDue();
             $config['ipnUrl']      = $this->getConfigValue('ipn_url');
-            $config['redirectUrl'] = $this->getConfigValue('redirect_url');
+            $config['Returnurl'] = $this->getConfigValue('vnp_Returnurl');
             
             // Production: https://payment.momo.vn
             // Sandbox: https://test-payment.momo.vn
@@ -137,6 +136,6 @@ class Service implements ApiInterface
      */
     protected function getConfigValue($path)
     {
-        return $this->scopeConfig->getValue('payment/momo/' . $path);
+        return $this->scopeConfig->getValue('payment/vnpay/' . $path);
     }
 }
