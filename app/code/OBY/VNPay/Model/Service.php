@@ -63,8 +63,6 @@ class Service implements ApiInterface
             $config['ipnUrl']      = $this->getConfigValue('ipn_url');
             $config['Returnurl'] = $this->getConfigValue('vnp_Returnurl');
             
-            // Production: https://payment.momo.vn
-            // Sandbox: https://test-payment.momo.vn
             $config['merchant_url'] = $this->getConfigValue('sandbox_flag') == 1 ? $this->getConfigValue('sandbox_payment_url') : $this->getConfigValue('payment_url');
 
             $payment    = new GVnpay($config);

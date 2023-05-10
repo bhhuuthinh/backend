@@ -3,12 +3,12 @@
     <preference for="OBY\VNPay\Api\ApiInterface" type="OBY\VNPay\Model\Service"/>
     <virtualType name="VNPayConfig" type="Magento\Payment\Gateway\Config\Config">
         <arguments>
-            <argument name="methodCode" xsi:type="string">momo</argument>
+            <argument name="methodCode" xsi:type="string">vnpay</argument>
         </arguments>
     </virtualType>
     <virtualType name="VNPayFacade" type="Magento\Payment\Model\Method\Adapter">
         <arguments>
-            <argument name="code" xsi:type="string">momo</argument>
+            <argument name="code" xsi:type="string">vnpay</argument>
             <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
             <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
             <argument name="valueHandlerPool" xsi:type="object">VNPayValueHandlerPool</argument>
