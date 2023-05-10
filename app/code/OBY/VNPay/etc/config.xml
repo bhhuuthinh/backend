@@ -23,7 +23,7 @@
                 <specificcountry>VN</specificcountry>
                 <merchant_name>VNPay Partner</merchant_name>
                 <vnp_Returnurl>http://ongbayeu.vn/ket-qua-thanh-toan</vnp_Returnurl>
-                <ipn_url>http://13.229.90.199/rest/all/V1/oby/momo/ipn</ipn_url>
+                <ipn_url>http://13.229.90.199/rest/all/V1/oby/vnpay/ipn</ipn_url>
                 <credit_memo_prefix>MEMO-</credit_memo_prefix>
                 <payment_action>authorize_capture</payment_action>
                 <payment_url>https://vnpayment.vn/paymentv2/vpcpay.html</payment_url>
