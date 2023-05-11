@@ -59,7 +59,7 @@ class GMomo
             'accessKey'     => $this->accessKey,
             'orderId'       => $this->transactionID,
             'orderInfo'     => $this->desc,
-            'amount'        => $this->amount,
+            'amount'        => round($this->amount),
             'ipnUrl'        => $this->ipnUrl,
             'redirectUrl'   => $this->redirectUrl,
             'requestType'   => 'captureWallet',
