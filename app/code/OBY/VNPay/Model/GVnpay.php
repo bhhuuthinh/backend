@@ -54,7 +54,7 @@ class GVnpay
             "vnp_OrderInfo" => "Thanh toan GD:" + $vnp_TxnRef,
             "vnp_OrderType" => "other",
             "vnp_ReturnUrl" => $this->Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef,
+            "vnp_TxnRef" => $this->orderId,
             // "vnp_ExpireDate" => $expire
         );
 
