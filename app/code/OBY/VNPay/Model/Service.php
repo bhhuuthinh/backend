@@ -96,17 +96,13 @@ class Service implements ApiInterface
         $request   = $this->request->getContent();
         $request   = json_decode($request, true);
 
-        $result_code    = $request['resultCode'];
+        $result_code    = $request['vnp_ResponseCode'];
 
         header('Content-Type: application/json; charset=utf-8');
 
         if($result_code == GVnpay_Status::SUCCESS){
             // Update order
-            $extra_data     = $request['extraData'];
-            $extra_data     = base64_decode($extra_data);
-            $extra_data     = json_decode($extra_data, true);
-
-            $orderId       = $extra_data['orderId'];
+            $orderId    = $request['vnp_TxnRef'];
             /** @var Order $order*/
             $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
             $order->setStatus(Order::STATE_PROCESSING);
