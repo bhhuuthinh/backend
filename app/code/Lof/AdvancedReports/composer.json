@@ -1,0 +1,27 @@
+{
+    "name": "landofcoder/module-advanced-reports",
+    "description": "Magento 2 Advanced Reports offer sales performance status with 28+ premade reports. Get new insights over how customers utilize and get predict sales trends. Using Magento 2 custom reports extension, you will get a variety of sale reports with priceless statistical data.",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "homepage": "https://landofcoder.com/magento-2-advanced-reports.html",
+    "authors": [
+        {
+            "name": "Landofcoder",
+            "email": "info@landofcoder.com",
+            "homepage": "https://landofcoder.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "version": "1.0.2",
+    "require": {
+        "landofcoder/module-all" : "1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lof\\AdvancedReports\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

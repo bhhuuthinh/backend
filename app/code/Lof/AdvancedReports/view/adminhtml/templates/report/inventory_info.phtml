@@ -1,0 +1,39 @@
+<?php
+$helper = $this->helper('Lof\AdvancedReports\Helper\Data');
+?>
+<?php
+/**
+ * @see Lof_AdvancedReports_Block_Adminhtml_Stats
+ */
+?>
+<div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="">
+    <h2><?php echo __("Summary"); ?></h2>
+  </div>
+  <div class="x_panel statistics">
+    <div class="x_content">
+      <div class="earnings-widget__wrapper">
+        <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-4 earnings-widget hover-color-effect1">
+          <div class="tile-stats">
+            <p><?php echo __("Available Quantity for sale");?></p>
+            <div class="count earnings-widget__amount"><?php echo $this->getAvailableQty(); ?></div>
+          </div>
+        </div>
+
+        <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-4 earnings-widget hover-color-effect1">
+          <div class="tile-stats">
+            <p><?php echo __("Purchased Quantity"); ?></p>
+            <div class="count earnings-widget__amount"><?php echo $this->getPurchasedQty() ?></div>
+          </div>
+        </div>
+
+        <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-4 earnings-widget hover-color-effect1">
+          <div class="tile-stats">
+            <p><?php echo __("Product Revenue"); ?></p>
+            <div class="count earnings-widget__amount"><?php echo $this->getRevenue() ?></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

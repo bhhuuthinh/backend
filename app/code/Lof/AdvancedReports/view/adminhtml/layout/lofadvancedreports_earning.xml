@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_AdvancedReports
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head> 
+		<!-- <css src="Lof_AdvancedReports::vendors/bootstrap/css/bootstrap.min.css"/> -->
+		<css src="Lof_AdvancedReports::css/jquery.minicolors.css"/>  
+		<css src="Lof_AdvancedReports::vendors/font-awesome/css/font-awesome.min.css"/> 
+		<css src="Lof_AdvancedReports::vendors/bootstrap-daterangepicker/daterangepicker.css"/> 
+		<css src="Lof_AdvancedReports::css/styles.css" /> 
+	</head>
+ </page>

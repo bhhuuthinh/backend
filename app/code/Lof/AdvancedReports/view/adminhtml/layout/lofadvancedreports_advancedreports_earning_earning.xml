@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_AdvancedReports
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"> 
+    <update handle="lofadvancedreports_advancedreports_order_order"/>
+    <body> 
+        <referenceContainer name="content"> 
+            <block class="Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Earning" template="report/grid/container.phtml" name="earning.report.grid.container">  
+                <block class="Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Filter\Form\Earning" name="grid.filter.form"/>  
+                <block class="Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Breadcrumb" template="breadcrumbs.phtml" name="report.breadcrumbs" />
+                <block class="Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Earning\Statistics" template="report/earning/statistics.phtml" name="report.topbar" />
+                <block class="Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Earning\Chart" template="report/earning/chart.phtml" name="report.chart" /> 
+                <container  name="report.content.bottom">
+                    <block class="Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Earning\Bestsellers" name="report.sales.bestsellers" template="report/earning/bestsellers.phtml">
+                    </block>
+                    <block class="Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Earning\Topcountries" name="report.sales.topcountries" template="report/earning/topcountries.phtml">
+                    </block>
+                    <block class="Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Earning\Payment" name="report.sales.payments" template="report/earning/payment.phtml">
+                    </block>
+                </container>
+            </block> 
+        </referenceContainer>
+    </body>
+</page>

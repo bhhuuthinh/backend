@@ -1,0 +1,62 @@
+<?php
+$helper      = $this->helper("Lof\AdvancedReports\Helper\Data");
+
+?>
+<?php
+/**
+ * @see Lof_AdvancedReports_Block_Adminhtml_Stats
+ */
+?>
+<?php
+	$collection = $this->getReportCollection();
+?>
+<div class="animated flipInY col-xs-4" id="reportBestsellers">
+  <div class="x_panel bestsellers">
+    <div class="x_title">
+      <h2><?php echo __("Bestseller Products"); ?></h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+          <ul class="dropdown-menu" role="menu">
+            <?php  echo $helper->getSettingsSkin(array("target"=>"#reportBestsellers")); ?>
+          </ul>
+        </li>
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content" style="display: none">
+      <div class="bestsellers-content">
+        <table class="bestsellers_list">
+        <thead>
+        <tr>
+          <th><?php echo __("Product"); ?></th>
+          <th><?php echo __("Total Sold"); ?></th>
+          <th><?php echo __("Earning"); ?></th>
+        </tr>
+        </thead>
+          <tbody>
+          	<?php if(0 < $collection->getSize()){ ?>
+          	<?php foreach ($collection as $item){
+              ?>
+          	<tr>
+              <td><a href="<?php echo $this->getUrl("catalog/product/edit", array("id"=> $item->getProductId())); ?>" target="_BLANK"><?php echo $item->getProductName(); ?></a></td>
+              <td class="fs15 fw700 text-right"><?php echo (int)$item->getQtyOrdered();?></td>
+              <td class="fs15 fw700 text-right"><small><?php echo $this->formatCurrency($item->getBaseRowTotal());?></small></td>
+            	</tr>
+          	<?php } ?>
+          	<?php } else { ?>
+          	<tr>
+              <td colspan="3"><?php echo __("No Records.");?></td>
+            	</tr>
+          	<?php } ?>
+          </tbody>
+        </table>
+        <p><a href="<?php echo $this->getBestsellerReportLink(); ?>" title="<?php echo __("View Details"); ?>" target="_BLANK"><?php echo __("View Details"); ?> <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
+      </div>
+    </div>
+  </div>
+</div>

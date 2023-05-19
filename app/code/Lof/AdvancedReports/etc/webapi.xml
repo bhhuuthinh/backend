@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+    <!-- Get Order Status -->
+    <route url="/V1/lofAdvancedReports/orderstatus" method="GET">
+        <service class="Lof\AdvancedReports\Api\OrderstatusInterface" method="getStatus"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::orderstatus" />
+        </resources>
+    </route>
+    <!-- Get Sales Earnings -->
+    <route url="/V1/lofAdvancedReports/earning" method="GET">
+        <service class="Lof\AdvancedReports\Api\EarningInterface" method="getEarning"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::earningreport" />
+        </resources>
+    </route>
+    <!-- Get Sales Earning Statistics -->
+    <route url="/V1/lofAdvancedReports/statistics" method="GET">
+        <service class="Lof\AdvancedReports\Api\StatisticsInterface" method="getStatistics"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::earningreport" />
+        </resources>
+    </route>
+    <!-- Get Module Settings -->
+    <route url="/V1/lofAdvancedReports/settings" method="GET">
+        <service class="Lof\AdvancedReports\Api\SettingInterface" method="getSetting"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::config_reports" />
+        </resources>
+    </route>
+    <!-- Get Sales Overview -->
+    <route url="/V1/lofAdvancedReports/overview" method="GET">
+        <service class="Lof\AdvancedReports\Api\OverviewInterface" method="getSalesOverview"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesoverview" />
+        </resources>
+    </route>
+    <!-- Get Sales By Hour -->
+    <route url="/V1/lofAdvancedReports/salesbyhour" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalesbyhourInterface" method="getSalesByHour"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbyhour" />
+        </resources>
+    </route>
+    <!-- Get Sales By Day Of Week -->
+    <route url="/V1/lofAdvancedReports/salesdayofweek" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalesdayofweekInterface" method="getSalesDayofweek"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::dayofweek" />
+        </resources>
+    </route>
+    <!-- Get Sales By Customer Group -->
+    <route url="/V1/lofAdvancedReports/salescustomergroup" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalescustomergroupInterface" method="getSalesCustomergroup"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbycustomergroup" />
+        </resources>
+    </route>
+    <!-- Get Sales By Product Type -->
+    <route url="/V1/lofAdvancedReports/salesproducttype" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalesproducttypeInterface" method="getSalesProducttype"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbyproducttype" />
+        </resources>
+    </route>
+    <!-- Get Sales By Product -->
+    <route url="/V1/lofAdvancedReports/salesbyproduct" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalesbyproductInterface" method="getSalesProduct"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::product" />
+        </resources>
+    </route>
+    <!-- Get Sales By Category -->
+    <route url="/V1/lofAdvancedReports/salescategory" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalescategoryInterface" method="getSalesCategory"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbycategory" />
+        </resources>
+    </route>
+    <!-- Get Sales By Payment Type -->
+    <route url="/V1/lofAdvancedReports/salespaymenttype" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalespaymenttypeInterface" method="getSalesPaymenttype"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbypaymenttype" />
+        </resources>
+    </route>
+    <!-- Get Sales By Country -->
+    <route url="/V1/lofAdvancedReports/salescountry" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalescountryInterface" method="getSalesCountry"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbycountry" />
+        </resources>
+    </route>
+    <!-- Get Sales By State/Region -->
+    <route url="/V1/lofAdvancedReports/salesregion" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalesregionInterface" method="getSalesRegion"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbyregion" />
+        </resources>
+    </route>
+    <!-- Get Sales By Zipcode -->
+    <route url="/V1/lofAdvancedReports/saleszipcode" method="GET">
+        <service class="Lof\AdvancedReports\Api\SaleszipcodeInterface" method="getSalesZipcode"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbyzipcode" />
+        </resources>
+    </route>
+     <!-- Get Sales By Counpon -->
+    <route url="/V1/lofAdvancedReports/salescoupon" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalescouponInterface" method="getSalesCoupon"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesbycoupon" />
+        </resources>
+    </route>
+    <!-- Get Customer Activity -->
+    <route url="/V1/lofAdvancedReports/customeractivity" method="GET">
+        <service class="Lof\AdvancedReports\Api\CustomeractivityInterface" method="getActivity"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::customeractivity" />
+        </resources>
+    </route>
+    <!-- Get Customer Report -->
+    <route url="/V1/lofAdvancedReports/customersreport" method="GET">
+        <service class="Lof\AdvancedReports\Api\CustomerreportInterface" method="getReport"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::customersreport" />
+        </resources>
+    </route>
+    <!-- Get Top Customers -->
+    <route url="/V1/lofAdvancedReports/topcustomers" method="GET">
+        <service class="Lof\AdvancedReports\Api\TopcustomersInterface" method="getTopCustomers"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::topcustomers" />
+        </resources>
+    </route>
+    <!-- Get Products Customer -->
+    <route url="/V1/lofAdvancedReports/productscustomer" method="GET">
+        <service class="Lof\AdvancedReports\Api\ProductscustomerInterface" method="getProductsCustomer"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::productscustomer" />
+        </resources>
+    </route>
+    <!-- Get Customer City -->
+    <route url="/V1/lofAdvancedReports/customerscity" method="GET">
+        <service class="Lof\AdvancedReports\Api\CustomercityInterface" method="getCustomerCity"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::customerscity" />
+        </resources>
+    </route>
+    <!-- Get Customer Country -->
+    <route url="/V1/lofAdvancedReports/customerscountry" method="GET">
+        <service class="Lof\AdvancedReports\Api\CustomercountryInterface" method="getCustomerCountry"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::customerscountry" />
+        </resources>
+    </route>
+    <!-- Get Customer Not Order -->
+    <route url="/V1/lofAdvancedReports/customernotorder" method="GET">
+        <service class="Lof\AdvancedReports\Api\CustomernotorderInterface" method="getCustomerNotOrder"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::customernotorder" />
+        </resources>
+    </route>
+    <!-- Get Order Detail -->
+    <route url="/V1/lofAdvancedReports/orderdetail" method="GET">
+        <service class="Lof\AdvancedReports\Api\OrderdetailInterface" method="getOrderDetail"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::detailed" />
+        </resources>
+    </route>
+    <!-- Get Guest Orders -->
+    <route url="/V1/lofAdvancedReports/guestorders" method="GET">
+        <service class="Lof\AdvancedReports\Api\GuestordersInterface" method="getGuestOrders"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::guestorders" />
+        </resources>
+    </route>
+    <!-- Get Abandoned -->
+    <route url="/V1/lofAdvancedReports/abandoned" method="GET">
+        <service class="Lof\AdvancedReports\Api\AbandonedInterface" method="getAbandoned"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::abandoned" />
+        </resources>
+    </route>
+    <!-- Get Abandoned Detailed -->
+    <route url="/V1/lofAdvancedReports/abandoneddetailed" method="GET">
+        <service class="Lof\AdvancedReports\Api\AbandoneddetailedInterface" method="getAbandonedDetailed"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::abandoneddetailed" />
+        </resources>
+    </route>
+    <!-- Get Items Detailed -->
+    <route url="/V1/lofAdvancedReports/itemsdetailed" method="GET">
+        <service class="Lof\AdvancedReports\Api\ItemdetailedInterface" method="getItemDetailed"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::itemsdetailed" />
+        </resources>
+    </route>
+    <!-- Get Products Report -->
+    <route url="/V1/lofAdvancedReports/productsreport" method="GET">
+        <service class="Lof\AdvancedReports\Api\ProductsreportInterface" method="getReport"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::productsreport" />
+        </resources>
+    </route>
+    <!-- Get Products Not Sold -->
+    <route url="/V1/lofAdvancedReports/productsnotsold" method="GET">
+        <service class="Lof\AdvancedReports\Api\ProductsnotsoldInterface" method="getProducts"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::productsnotsold" />
+        </resources>
+    </route>
+    <!-- Get Sales Per Product Per Country - pending -->
+    <route url="/V1/lofAdvancedReports/salesproductcountry" method="GET">
+        <service class="Lof\AdvancedReports\Api\SalesproductcountryInterface" method="getSalesProductCountry"/>
+        <resources>
+            <resource ref="Lof_AdvancedReports::salesproductcountry" />
+        </resources>
+    </route>
+</routes>

@@ -1,0 +1,151 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * @see Lof_AdvancedReports_Block_Adminhtml_Advancedreport_Sales_Paymenttype_Calculator
+ */
+$payments = $this->getListPayments();
+if($payments){
+?>
+<div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12 payments">
+	<div class="x_panel report-payments">
+		<div class="x_title">
+	      <h2><?php echo __("Profit Calulator <small>real profit by payments</small>"); ?></h2>
+	      <ul class="nav navbar-right panel_toolbox">
+	        <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+	        </li>
+	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        </li>
+	      </ul>
+	      <div class="clearfix"></div>
+	    </div>
+	    <div class="x_content" style="display: none">
+			<div class="tile-stats">
+				<!-- Show calculator form at here-->
+				<br />
+                    <form id="form-calculator" data-parsley-validate class="form-horizontal form-label-left">
+
+                      <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <table class="table">
+		                      <thead>
+		                        <tr>
+		                          <th>#</th>
+		                          <th><?php echo __("Profit"); ?></th>
+		                          <th><?php echo __("Real Amount"); ?></th>
+		                          <th><?php echo __("Margin"); ?></th>
+		                        </tr>
+		                      </thead>
+		                      <tbody>
+		                      	<?php foreach($payments as $key=>$item) { ?>
+		                      	<?php
+		                      	$paymentTitle = $item->getStore()->getConfig('payment/'.$key.'/title');
+		                      	$profit = (float)$item->getData("total_profit_amount");
+		                      	?>
+		                        <tr class="payment-item payment-<?php echo $key; ?>" data-payment="<?php echo $paymentTitle; ?>">
+		                          <th scope="row"><?php echo $paymentTitle; ?></th>
+		                          <td>$<input type="text" id="payment-<?php echo $key; ?>-profit" class="form-control col-md-10 col-xs-12 payment-profit" data-payment="<?php echo $key; ?>" value="<?php echo $profit; ?>"></td>
+		                          <td>$<input type="text" id="payment-<?php echo $key; ?>-real-amount" class="form-control col-md-10 col-xs-12 real-payment-amount" data-payment="<?php echo $key; ?>" placeholder="0.00" value="" onchange="updateMarginAmount(this)"></td>
+		                          <td>$<input type="text" id="payment-<?php echo $key; ?>-margin-amount" class="form-control col-md-10 col-xs-12 margin-amount" data-payment="<?php echo $key; ?>" placeholder="0.00" value=""></td>
+		                        </tr>
+		                        <?php } ?>
+		                      </tbody>
+		                    </table>
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div id="calculate-result" class="">
+                  		<h3><?php echo __("Result"); ?></h3>
+                      	<div class="form-group">
+	                        <label class="control-label col-md-3 col-sm-3 col-xs-12"><?php echo __("Total Profit"); ?></label>
+	                        <div class="col-md-6 col-sm-6 col-xs-12">
+	                          <span id="result-total-profit">$0.00</span>
+	                        </div>
+                      	</div>
+                      	<div class="form-group">
+	                        <label class="control-label col-md-3 col-sm-3 col-xs-12"><?php echo __("Total Real Amount"); ?></label>
+	                        <div class="col-md-6 col-sm-6 col-xs-12">
+	                          <span id="result-total-real-amount">$0.00</span>
+	                        </div>
+                      	</div>
+                      	<div class="form-group">
+	                        <label class="control-label col-md-3 col-sm-3 col-xs-12"><?php echo __("Total Margin Amount"); ?></label>
+	                        <div class="col-md-6 col-sm-6 col-xs-12">
+	                          <span id="result-total-margin-amount">$0.00</span>
+	                        </div>
+                      	</div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button type="button" class="btn btn-success" onclick="return calculateAmounts()"><?php echo __("Calculate!"); ?></button>
+                        </div>
+                      </div>
+
+                    </form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+function calculateAmounts() {
+	var total_profit = total_real_amount = total_margin_amount = 0;
+
+	jQuery(".payment-item").each(function() {
+		var profit_amount = jQuery(this).find(".payment-profit").first().val();
+		var real_amount = jQuery(this).find(".real-payment-amount").first().val();
+
+		if(profit_amount) {
+			total_profit += parseFloat(profit_amount);
+		}
+		if(real_amount) {
+			total_real_amount += parseFloat(real_amount);
+		}
+
+		console.log("\n ----- Payment: "+jQuery(this).data("payment")+" ------ ");
+		console.log("\n profit_amount = "+profit_amount);
+		console.log("\n real_amount = "+real_amount);
+		console.log("\n total_real_amount = "+total_real_amount);
+	})
+
+	total_margin_amount = parseFloat(total_profit) - parseFloat(total_real_amount);
+
+	jQuery("#result-total-profit").html("$"+total_profit);
+	jQuery("#result-total-real-amount").html("$"+total_real_amount);
+	jQuery("#result-total-margin-amount").html("$"+total_margin_amount);
+
+	return false;
+}
+function updateMarginAmount(curObj) {
+	var payment_type = jQuery(curObj).data("payment");
+	var profit_amount = jQuery("#payment-"+payment_type+"-profit").val();
+	var real_amount = jQuery(curObj).val();
+	var margin_amount = parseFloat(profit_amount) - parseFloat(real_amount);
+
+	jQuery("#payment-"+payment_type+"-margin-amount").val(margin_amount);
+}
+</script>
+<?php } ?>

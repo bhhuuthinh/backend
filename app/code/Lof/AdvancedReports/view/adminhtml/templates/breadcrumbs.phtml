@@ -1,0 +1,15 @@
+<?php   
+$breadcrumbs = $this->getBreadcrumbs();
+if($breadcrumbs){ 
+?>
+<div class="breadcrumb">
+<?php foreach ($breadcrumbs as $breadcrumb) { ?>
+<?php echo $breadcrumb['separator']; ?>
+<?php if(isset($breadcrumb['href'])): ?>
+<a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+<?php else: ?>
+<?php echo $breadcrumb['text']; ?>
+<?php endif; ?>
+<?php } ?>
+</div>
+<?php } ?>

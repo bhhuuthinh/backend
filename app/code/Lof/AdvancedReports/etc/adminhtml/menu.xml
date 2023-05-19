@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_AdvancedReports
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Lof_AdvancedReports::advancedreport" title="Advanced Reports" module="Lof_AdvancedReports" sortOrder="30" resource="Lof_AdvancedReports::advancedreport"/>
+ 
+        <add id="Lof_AdvancedReports::earningreport" title="Earning" module="Lof_AdvancedReports" sortOrder="20" resource="Lof_AdvancedReports::earningreport" action="lofadvancedreports/advancedreports_earning/earning/current/1" parent="Lof_AdvancedReports::advancedreport"/>
+
+        <add id="Lof_AdvancedReports::order" title="Order" module="Lof_AdvancedReports" sortOrder="160" resource="Lof_AdvancedReports::order" parent="Lof_AdvancedReports::advancedreport"/>
+
+        <add id="Lof_AdvancedReports::orderdetailed" title="Order Detail" module="Lof_AdvancedReports" sortOrder="30" resource="Lof_AdvancedReports::orderdetailed" action="lofadvancedreports/advancedreports_order/detailed" parent="Lof_AdvancedReports::order"/>
+        
+        <add id="Lof_AdvancedReports::orderitemsdetailed" title="Order Items Detail" module="Lof_AdvancedReports" sortOrder="40" resource="Lof_AdvancedReports::orderitemsdetailed" action="lofadvancedreports/advancedreports_order/itemsdetailed" parent="Lof_AdvancedReports::order"/>
+
+        <add id="Lof_AdvancedReports::guestorders" title="Order by Guests" module="Lof_AdvancedReports" sortOrder="50" resource="Lof_AdvancedReports::guestorders" action="lofadvancedreports/advancedreports_order/guestorders" parent="Lof_AdvancedReports::order"/>
+	
+
+        <add id="Lof_AdvancedReports::abandoned" title="Abandoned Carts" module="Lof_AdvancedReports" sortOrder="60" resource="Lof_AdvancedReports::abandoned" action="lofadvancedreports/advancedreports_order/abandoned" parent="Lof_AdvancedReports::order"/>
+
+        <add id="Lof_AdvancedReports::abandoneddetailed" title="Abandoned Detailed Carts" module="Lof_AdvancedReports" sortOrder="70" resource="Lof_AdvancedReports::abandoneddetailed" action="lofadvancedreports/advancedreports_order/abandoneddetailed" parent="Lof_AdvancedReports::order"/>
+
+        <add id="Lof_AdvancedReports::customers" title="Customers " module="Lof_AdvancedReports" sortOrder="170" resource="Lof_AdvancedReports::customers" parent="Lof_AdvancedReports::advancedreport"/>
+
+        <add id="Lof_AdvancedReports::customeractivity" title="Customer Activity" module="Lof_AdvancedReports" sortOrder="10" resource="Lof_AdvancedReports::customeractivity" action="lofadvancedreports/advancedreports_customer/activity" parent="Lof_AdvancedReports::customers"/>
+        
+        <add id="Lof_AdvancedReports::customersreport" title="Customers Reports" module="Lof_AdvancedReports" sortOrder="20" resource="Lof_AdvancedReports::customersreport" action="lofadvancedreports/advancedreports_customer/customersreport" parent="Lof_AdvancedReports::customers"/>
+
+        <add id="Lof_AdvancedReports::topcustomers" title="Top Customers Reports" module="Lof_AdvancedReports" sortOrder="30" resource="Lof_AdvancedReports::topcustomers" action="lofadvancedreports/advancedreports_customer/topcustomers" parent="Lof_AdvancedReports::customers"/>
+
+        <add id="Lof_AdvancedReports::productscustomer" title="Products By Customer" module="Lof_AdvancedReports" sortOrder="40" resource="Lof_AdvancedReports::productscustomer" action="lofadvancedreports/advancedreports_customer/productscustomer" parent="Lof_AdvancedReports::customers"/> 
+
+        <add id="Lof_AdvancedReports::customerscity" title="Customers By City" module="Lof_AdvancedReports" sortOrder="50" resource="Lof_AdvancedReports::customerscity" action="lofadvancedreports/advancedreports_customer/customerscity" parent="Lof_AdvancedReports::customers"/> 
+
+        <add id="Lof_AdvancedReports::customerscountry" title="Customers By Country" module="Lof_AdvancedReports" sortOrder="60" resource="Lof_AdvancedReports::customerscountry" action="lofadvancedreports/advancedreports_customer/customerscountry" parent="Lof_AdvancedReports::customers"/> 
+
+        <add id="Lof_AdvancedReports::customernotorder" title="Customers Not Order" module="Lof_AdvancedReports" sortOrder="70" resource="Lof_AdvancedReports::customernotorder" action="lofadvancedreports/advancedreports_customer/customernotorder" parent="Lof_AdvancedReports::customers"/> 
+
+        <add id="Lof_AdvancedReports::products" title="Products" module="Lof_AdvancedReports" sortOrder="180" resource="Lof_AdvancedReports::products" parent="Lof_AdvancedReports::advancedreport"/>
+  
+        <add id="Lof_AdvancedReports::productsreport" title="Products Report" module="Lof_AdvancedReports" sortOrder="10" resource="Lof_AdvancedReports::productsreport" action="lofadvancedreports/advancedreports_products/productsreport" parent="Lof_AdvancedReports::products"/> 
+
+        <add id="Lof_AdvancedReports::productsnotsold" title="Products Not Sold" module="Lof_AdvancedReports" sortOrder="20" resource="Lof_AdvancedReports::productsnotsold" action="lofadvancedreports/advancedreports_products/productsnotsold" parent="Lof_AdvancedReports::products"/>
+
+        <add id="Lof_AdvancedReports::inventory" title="Product - Inventory Reports" module="Lof_AdvancedReports" sortOrder="22" resource="Lof_AdvancedReports::inventory" action="lofadvancedreports/advancedreports_products/inventory" parent="Lof_AdvancedReports::products"/>
+
+        <add id="Lof_AdvancedReports::productsoldtogether" title="Most Products Sold Together" module="Lof_AdvancedReports" sortOrder="24" resource="Lof_AdvancedReports::productsoldtogether" action="lofadvancedreports/advancedreports_products/productsoldtogether" parent="Lof_AdvancedReports::products"/>
+
+        <add id="Lof_AdvancedReports::sales" title="Sales" module="Lof_AdvancedReports" sortOrder="190" resource="Lof_AdvancedReports::sales" parent="Lof_AdvancedReports::advancedreport"/>
+
+        <add id="Lof_AdvancedReports::salesoverview" title="Sales Overview" module="Lof_AdvancedReports" sortOrder="10" resource="Lof_AdvancedReports::salesoverview" action="lofadvancedreports/advancedreports_sales/overview" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesstatistics" title="Sales Statistics" module="Lof_AdvancedReports" sortOrder="20" resource="Lof_AdvancedReports::salesstatistics" action="lofadvancedreports/advancedreports_sales/statistics" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbycustomergroup" title="Sales By Customer Group" module="Lof_AdvancedReports" sortOrder="30" resource="Lof_AdvancedReports::salesbycustomergroup" action="lofadvancedreports/advancedreports_sales/customergroup" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbyproducttype" title="Sales By Product Type" module="Lof_AdvancedReports" sortOrder="40" resource="Lof_AdvancedReports::salesbyproducttype" action="lofadvancedreports/advancedreports_sales/producttype" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbyhour" title="Sales By Hour" module="Lof_AdvancedReports" sortOrder="50" resource="Lof_AdvancedReports::salesbyhour" action="lofadvancedreports/advancedreports_sales/hour" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbydayofweek" title="Sales Day Of Week" module="Lof_AdvancedReports" sortOrder="60" resource="Lof_AdvancedReports::salesbydayofweek" action="lofadvancedreports/advancedreports_sales/dayofweek" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbyproduct" title="Sales By Product" module="Lof_AdvancedReports" sortOrder="70" resource="Lof_AdvancedReports::salesbyproduct" action="lofadvancedreports/advancedreports_sales/product" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbycategory" title="Sales By Category" module="Lof_AdvancedReports" sortOrder="80" resource="Lof_AdvancedReports::salesbycategory" action="lofadvancedreports/advancedreports_sales/category" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbypaymenttype" title="Sales By Payment Type" module="Lof_AdvancedReports" sortOrder="90" resource="Lof_AdvancedReports::salesbypaymenttype" action="lofadvancedreports/advancedreports_sales/paymenttype" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbycountry" title="Sales By Country" module="Lof_AdvancedReports" sortOrder="100" resource="Lof_AdvancedReports::salesbycountry" action="lofadvancedreports/advancedreports_sales/country" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesproductcountry" title="Sales Per Product Per Country" module="Lof_AdvancedReports" sortOrder="105" resource="Lof_AdvancedReports::salesproductcountry" action="lofadvancedreports/advancedreports_sales/productcountry" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbyregion" title="Sales By Region/ State" module="Lof_AdvancedReports" sortOrder="110" resource="Lof_AdvancedReports::salesbyregion" action="lofadvancedreports/advancedreports_sales/region" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbyzipcode" title="Sales By Zipcode" module="Lof_AdvancedReports" sortOrder="120" resource="Lof_AdvancedReports::salesbyzipcode" action="lofadvancedreports/advancedreports_sales/zipcode" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::salesbycoupon" title="Sales By Coupon Code" module="Lof_AdvancedReports" sortOrder="130" resource="Lof_AdvancedReports::salesbycoupon" action="lofadvancedreports/advancedreports_sales/coupon" parent="Lof_AdvancedReports::sales"/>
+
+        <add id="Lof_AdvancedReports::testcronrun" title="Force Run Cron Job" module="Lof_AdvancedReports" sortOrder="195" action="lofadvancedreports/advancedreports_testcron/runcron" resource="Lof_AdvancedReports::testcronrun" parent="Lof_AdvancedReports::advancedreport"/>
+
+        <add id="Lof_AdvancedReports::settings" title="Settings" module="Lof_AdvancedReports" sortOrder="200" action="adminhtml/system_config/edit/section/advancedreports" resource="Lof_AdvancedReports::settings" parent="Lof_AdvancedReports::advancedreport"/>
+
+  
+
+    </menu>
+</config>

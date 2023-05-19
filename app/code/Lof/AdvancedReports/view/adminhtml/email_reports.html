@@ -1,0 +1,29 @@
+<!--@subject Ves Advanced Reports@-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var file_name":"Export File Name",
+"var file_url":"Export File Url",
+"var now":"Sent date time",
+"var recipient_name":"Recipient Name",
+"var recipients":"Array Emails of Recipients"
+}
+@-->
+<!--@subject Question subscription success @-->
+
+{{template config_path="design/email/header_template"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td class="action-content">
+            <h4>Hello My Boss, you just received a sales export file <strong>"{{var file_name}}"</strong>.</h4>
+            <p>
+            Please download the export file at here: <a href="{{var file_url}}" target="_BLANK"><strong>Download</strong></a>
+            </p>
+            <p>Email was sent at: {{var now}}</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

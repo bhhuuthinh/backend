@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!-- Order status -->
+    <preference for="Lof\AdvancedReports\Api\OrderstatusInterface"
+                type="Lof\AdvancedReports\Model\OrderstatusRepository" />
+
+    <!-- Report earnings -->
+	<preference for="Lof\AdvancedReports\Api\Data\ReportdataInterface"
+				type="Magento\Framework\Api\SearchResults" />
+
+    <preference for="Lof\AdvancedReports\Api\EarningInterface"
+                type="Lof\AdvancedReports\Model\EarningRepository" />
+
+    <preference for="Lof\AdvancedReports\Api\StatisticsInterface"
+                type="Lof\AdvancedReports\Model\StatisticsRepository" />    
+
+    <!-- Report settings -->            
+    <preference for="Lof\AdvancedReports\Api\SettingInterface"
+                type="Lof\AdvancedReports\Model\SettingRepository" />
+
+    <!-- Report Sales Overview -->
+    <preference for="Lof\AdvancedReports\Api\OverviewInterface"
+                type="Lof\AdvancedReports\Model\OverviewRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\OverviewdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Sales Overview -->
+    <preference for="Lof\AdvancedReports\Api\SalespaymenttypeInterface"
+                type="Lof\AdvancedReports\Model\SalespaymenttypeRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalespaymenttypedataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Sales By Hour -->            
+    <preference for="Lof\AdvancedReports\Api\SalesbyhourInterface"
+                type="Lof\AdvancedReports\Model\SalesbyhourRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalesbyhourdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+   <!-- Report Sales By Day Of Week -->            
+    <preference for="Lof\AdvancedReports\Api\SalesdayofweekInterface"
+                type="Lof\AdvancedReports\Model\SalesdayofweekRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalesdayofweekdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Sales Customer Group -->            
+    <preference for="Lof\AdvancedReports\Api\SalescustomergroupInterface"
+                type="Lof\AdvancedReports\Model\SalescustomergroupRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalescustomergroupdataInterface"
+                type="Magento\Framework\Api\SearchResults" />          
+
+    <!-- Report Customer Activity -->            
+    <preference for="Lof\AdvancedReports\Api\CustomeractivityInterface"
+                type="Lof\AdvancedReports\Model\CustomeractivityRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\CustomeractivitydataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Customer Report -->            
+    <preference for="Lof\AdvancedReports\Api\CustomerreportInterface"
+                type="Lof\AdvancedReports\Model\CustomerreportRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\CustomerreportdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Top Customers -->            
+    <preference for="Lof\AdvancedReports\Api\TopcustomersInterface"
+                type="Lof\AdvancedReports\Model\TopcustomersRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\TopcustomersdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Products Customer -->            
+    <preference for="Lof\AdvancedReports\Api\ProductscustomerInterface"
+                type="Lof\AdvancedReports\Model\ProductscustomerRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\ProductscustomerdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Customers by city -->            
+    <preference for="Lof\AdvancedReports\Api\CustomercityInterface"
+                type="Lof\AdvancedReports\Model\CustomercityRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\CustomercitydataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+     <!-- Report Customers by country -->            
+    <preference for="Lof\AdvancedReports\Api\CustomercountryInterface"
+                type="Lof\AdvancedReports\Model\CustomercountryRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\CustomercountrydataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Customers not order -->            
+    <preference for="Lof\AdvancedReports\Api\CustomernotorderInterface"
+                type="Lof\AdvancedReports\Model\CustomernotorderRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\CustomernotorderdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Sales By Product Type -->            
+    <preference for="Lof\AdvancedReports\Api\SalesproducttypeInterface"
+                type="Lof\AdvancedReports\Model\SalesproducttypeRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalesproducttypedataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Sales By Product -->            
+    <preference for="Lof\AdvancedReports\Api\SalesbyproductInterface"
+                type="Lof\AdvancedReports\Model\SalesbyproductRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalesbyproductdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Sales By Category -->            
+    <preference for="Lof\AdvancedReports\Api\SalescategoryInterface"
+                type="Lof\AdvancedReports\Model\SalescategoryRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalescategorydataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Sales By Country -->            
+    <preference for="Lof\AdvancedReports\Api\SalescountryInterface"
+                type="Lof\AdvancedReports\Model\SalescountryRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalescountrydataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Sales By Region/State -->            
+    <preference for="Lof\AdvancedReports\Api\SalesregionInterface"
+                type="Lof\AdvancedReports\Model\SalesregionRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalesregiondataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Sales By Zipcode -->            
+    <preference for="Lof\AdvancedReports\Api\SaleszipcodeInterface"
+                type="Lof\AdvancedReports\Model\SaleszipcodeRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SaleszipcodedataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Sales By Counpon -->            
+    <preference for="Lof\AdvancedReports\Api\SalescouponInterface"
+                type="Lof\AdvancedReports\Model\SalescouponRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalescoupondataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Order Detail -->            
+    <preference for="Lof\AdvancedReports\Api\OrderdetailInterface"
+                type="Lof\AdvancedReports\Model\OrderdetailRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\OrderdetaildataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Guest Order -->            
+    <preference for="Lof\AdvancedReports\Api\GuestordersInterface"
+                type="Lof\AdvancedReports\Model\GuestordersRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\GuestordersdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Abandonded -->            
+    <preference for="Lof\AdvancedReports\Api\AbandonedInterface"
+                type="Lof\AdvancedReports\Model\AbandonedRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\AbandoneddataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Abandonded Detail -->            
+    <preference for="Lof\AdvancedReports\Api\AbandoneddetailedInterface"
+                type="Lof\AdvancedReports\Model\AbandoneddetailedRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\AbandoneddetaileddataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get Item Detail -->            
+    <preference for="Lof\AdvancedReports\Api\ItemdetailedInterface"
+                type="Lof\AdvancedReports\Model\ItemdetailedRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\ItemdetaileddataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get ProductsreportInterface -->            
+    <preference for="Lof\AdvancedReports\Api\ProductsreportInterface"
+                type="Lof\AdvancedReports\Model\ProductsreportRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\ProductsreportdataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Get ProductsnotsoldInterface -->            
+    <preference for="Lof\AdvancedReports\Api\ProductsnotsoldInterface"
+                type="Lof\AdvancedReports\Model\ProductsnotsoldRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\ProductsnotsolddataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+
+    <!-- Report Sales Per Product Per Country - pending -->            
+    <preference for="Lof\AdvancedReports\Api\SalesproductcountryInterface"
+                type="Lof\AdvancedReports\Model\SalesproductcountryRepository" />
+    <preference for="Lof\AdvancedReports\Api\Data\SalesproductcountrysolddataInterface"
+                type="Magento\Framework\Api\SearchResults" />
+</config>

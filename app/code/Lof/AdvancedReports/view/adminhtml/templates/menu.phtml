@@ -1,0 +1,82 @@
+<?php
+/**
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Landofcoder EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.landofcoder.com/LICENSE-1.0.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.landofcoder.com/ for more information
+ *
+ * @category   Lof
+ * @package    Lof_AdvancedReports
+ * @copyright  Copyright (c) 2020 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+
+/** @var $block \Lof\AdvancedReports\Block\Adminhtml\Advancedreport\Menu */
+?>
+<div class="landofcoder-fue-menu">
+    <div class="actions dropdown closable">
+    <span class="store-switcher-label"><?php echo __('Menu:');?></span>
+        <button type="button" class="admin__action-dropdown" data-mage-init='{"dropdown":{}}' data-toggle="dropdown" aria-haspopup="true">
+            <span class="admin__action-dropdown-text"><?php echo $block->getCurrentItem()['title'] ?></span>
+        </button>
+        <ul class="dropdown-menu">
+            <?php foreach ($block->getMenuItems() as $index => $item): ?>
+                <li class="<?php if ($block->isCurrent($index)): ?>current<?php endif; ?> <?php if (isset($item['separator'])): ?>separator<?php endif; ?>" >
+                    <a <?php if(isset($item['item'])){ echo 'class="lof-dropdown"'; } ?>  href="<?php echo $item['url'] ?>" <?php echo $block->renderAttributes($item) ?>><?php echo $item['title'] ?><?php if(isset($item['item'])){ echo '<span class="opener" ></span>'; } ?></a>
+                    <?php if(isset($item['item'])) { ?>
+                        <ul class="dropdown-submenu">
+                             <?php foreach ($item['item'] as $index => $item): ?>
+                            <li class="<?php if ($block->isCurrent($index)): ?>current<?php endif; ?> <?php if (isset($item['separator'])): ?>separator<?php endif; ?>">
+                                <a href="<?php echo $item['url'] ?>" <?php echo $block->renderAttributes($item) ?>><?php echo $item['title'] ?></a>
+                            </li>
+                             <?php endforeach; ?>
+                        </ul>
+                    <?php } ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<div class="landofcoder-fue-menu">
+    <div class="actions dropdown closable">
+        <span class="store-switcher-label"><?php echo __('Currency:');?></span>
+        <select id="currency_code_select" class="select admin__control-select" style="margin-left: 15px;">
+            <?php foreach ( $block->getCurrencySymbolsData() as $currencyCode => $symbol ) : ?>
+                <?php $selected = $block->getCurrentCurrencyCode() && $block->getCurrentCurrencyCode() == $currencyCode ? 'selected="selected"' : ''; ?>
+                <option value="<?= $block->escapeHtmlAttr( $currencyCode ) ?>" <?= $selected ?> ><?= $block->escapeHtml( $symbol['displayName'] ) ?>&nbsp;(<?= $symbol['displaySymbol'] ?>)</option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
+<script type="text/javascript">
+require(['jquery'],function($){
+    //Toggle mobile menu
+    $('.landofcoder-fue-menu .lof-dropdown').on('click', function(e) {
+        e.preventDefault();
+        $(this).toggleClass('item-active');
+        var parent = $(this).parent().eq(0);
+        $(parent).find(".dropdown-submenu").eq(0).slideToggle();
+        return false;
+    });
+
+    $('#currency_code_select').on('change', function (e) {
+        e.preventDefault();
+        var $currency_code_input = $('input[name="currency_code"]');
+
+        if ($currency_code_input.length > 0 ) {
+            var currency_code = $(this).val();
+            $currency_code_input.val(currency_code);
+        }
+    });
+});
+</script>

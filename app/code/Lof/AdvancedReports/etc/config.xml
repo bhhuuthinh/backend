@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category   Landofcoder
+ * @package    Lof_AdvancedReports
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<advancedreports>
+			<charts_settings>
+				<enable>1</enable>
+				<height>300</height>
+				<font_size>14</font_size>
+				<margin>0</margin>
+				<low_stock_number>10</low_stock_number>
+			</charts_settings>
+			<scheduled_email_settings>
+				<enable_cron_tab>0</enable_cron_tab>
+				<email_recipients>test@test.com</email_recipients>
+                <period>today</period>
+                <group_by>day</group_by>
+                <limit>100</limit>
+                <frequency>0</frequency>
+                <at_time>08,45,00</at_time>
+                <file_format>csv</file_format>
+                <copy_folder>generated_reports/</copy_folder>
+                <delete_old_file>1</delete_old_file>
+                <email_subject>Advanced Report</email_subject>
+                <email_sender>general</email_sender>
+                <email_template>ves_advancedreports_sheduled_email_email_template</email_template>
+                <enable_debug_log>1</enable_debug_log>
+			</scheduled_email_settings>
+			<mobile_settings>
+				<allow_reports>earning,detailed,guestorders,abandoned,abandoneddetailed,itemsdetailed,activity,customersreport,topcustomers,productscustomer,customerscity,customerscountry,customernotorder,productsreport,productsnotsold,overview,statistics,customergroup,producttype,hour,dayofweek,product,category,paymenttype,country,region,zipcode,coupon,manage_customer,manage_order</allow_reports>
+			</mobile_settings>
+		</advancedreports>
+	</default>
+</config>

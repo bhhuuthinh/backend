@@ -1,0 +1,51 @@
+<?php
+ ?>
+<?php
+/**
+ * @see Lof_AdvancedReports_Block_Adminhtml_Advancedreport_Earning_Chart
+ */
+if(!$this->isHideChart()) {
+$init_chart_html = $this->getInitChart();
+$report_chart_html = $this->getReportChart();
+$settings = $this->getSettings();
+$chart_items = $this->getChartItems();
+$chart_settings = $this->getChartSettings($settings, $chart_items);
+?>
+<div class="animated flipInY col-xs-12 charts">
+	<div class="x_panel report-chart">
+		<div class="x_title">
+	      <h2><?php echo __("Chart"); ?></h2>
+	      <ul class="nav navbar-right panel_toolbox">
+	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        </li>
+
+	        <?php if($chart_settings){ ?>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <?php  echo $chart_settings; ?>
+	          </ul>
+	        </li>
+	        <?php } ?>
+	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        </li>
+	      </ul>
+	      <div class="clearfix"></div>
+	    </div>
+	    <div class="x_content">
+			<div class="tile-stats">
+				<div id="chart_container" class="<?php echo isset($settings['chart_class'])?$settings['chart_class']:''; ?>" style="min-width: <?php echo isset($settings['chart_width'])?$settings['chart_width']:'100px'; ?>; height: <?php echo isset($settings['chart_height'])?$settings['chart_height']:'300px'; ?>; margin: 0 auto"></div>
+				<?php echo $this->getGoogleApi(); ?>
+				<script type="text/javascript"><!--
+				<?php echo $init_chart_html; ?>
+				<?php echo $report_chart_html; ?>
+				//--></script>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php } ?>
+
+

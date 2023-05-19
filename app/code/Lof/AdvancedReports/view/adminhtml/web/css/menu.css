@@ -1,0 +1,6 @@
+.admin__menu .item-advancedreport > a:before {
+    content: url('../images/logo.png') !important;
+    font-size: 2.4rem!important;
+    position: relative!important;
+    top: -0.2rem!important;
+}

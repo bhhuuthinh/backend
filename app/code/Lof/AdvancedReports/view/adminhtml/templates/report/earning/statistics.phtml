@@ -1,0 +1,52 @@
+<?php
+    $helper = $this->helper('Lof\AdvancedReports\Helper\Data');
+	$currentMonthCollection = $helper->prepareCollection();
+	$lastMonthCollection = $helper->prepareLastMonthCollection();
+?>
+<div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="x_panel statistics">
+    <div class="x_title">
+      <h2><?php echo __("Statistics"); ?></h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+          <ul class="dropdown-menu" role="menu">
+            <?php  echo  $helper->getSettingsSkin(array("target"=>"#reportTopbar")); ?>
+          </ul>
+        </li>
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <div class="earnings-widget__wrapper">
+          <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-4 earnings-widget hover-color-effect1">
+            <div class="tile-stats">
+              <p><?php echo __("Sales earnings this month (". $this->getCurrentMonth()."):"); ?></p>
+              <div class="count earnings-widget__amount"><?php echo $this->formatCurrency($currentMonthCollection->getRevenue()); ?></div>
+              <p><?php echo __("Total number of items sold this month: <strong>".$currentMonthCollection->getQuantity()."</strong>"); ?></p>
+            </div>
+          </div>
+
+          <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-4 earnings-widget hover-color-effect1">
+            <div class="tile-stats">
+              <p><?php echo __("Sales earnings last month."); ?></p>
+              <div class="count earnings-widget__amount"><?php echo $this->formatCurrency($lastMonthCollection->getRevenue()); ?></div>
+              <p><?php echo __("Total number of items sold last month: <strong>".$lastMonthCollection->getQuantity()."</strong>"); ?></p>
+            </div>
+          </div>
+
+          <div class="animated flipInY col-lg-4 col-md-4 col-sm-4 col-xs-4 earnings-widget hover-color-effect1">
+            <div class="tile-stats">
+              <p><?php echo __("Total value of your item sales:"); ?></p>
+              <div class="count earnings-widget__amount"><?php echo $this->formatCurrency($this->getTotals()) ?></div>
+              <p><?php echo __("based on list price of each item"); ?></p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

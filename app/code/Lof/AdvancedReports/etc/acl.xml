@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_AdvancedReports
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Lof_AdvancedReports::advancedreport" title="Lof Advanced Reports">
+					<resource id="Lof_AdvancedReports::earningreport" title="Earnings Reports" sortOrder="10">
+						<resource id="Lof_AdvancedReports::earningreport_view" title="View Earning Reports" sortOrder="10" />
+						<resource id="Lof_AdvancedReports::earningreport_export" title="Export Earning Reports" sortOrder="20" />
+					</resource>
+					<resource id="Lof_AdvancedReports::order" title="Sales Statists" sortOrder="10">
+						<resource id="Lof_AdvancedReports::orderdetailed" title="View Order Detail" sortOrder="10" />
+						<resource id="Lof_AdvancedReports::orderitemsdetailed" title="View Order Items Detail" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::guestorders" title="Order by Guests" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::abandoned" title="Abandoned Carts" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::abandoneddetailed" title="Abandoned Detailed Carts" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::orderstatus" title="Get Order Status" sortOrder="100" />
+					</resource>
+					<resource id="Lof_AdvancedReports::products" title="Product" sortOrder="10">
+						<resource id="Lof_AdvancedReports::productsreport" title="Products Report" sortOrder="10" />
+						<resource id="Lof_AdvancedReports::productsnotsold" title="Products Not Sold" sortOrder="20" /> 
+						<resource id="Lof_AdvancedReports::inventory" title="Product - Inventory Reports" sortOrder="22" /> 
+						<resource id="Lof_AdvancedReports::productsoldtogether" title="Most Products Sold Together" sortOrder="24" />  
+					</resource>
+					<resource id="Lof_AdvancedReports::customers" title="Customers" sortOrder="10">
+						<resource id="Lof_AdvancedReports::customeractivity" title="Customer Activity " sortOrder="20" />
+						<resource id="Lof_AdvancedReports::customersreport" title="Customers Reports" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::topcustomers" title="Top Customers Reports" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::customerscity" title="Customer City" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::customerscountry" title="Customer Country" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::productscustomer" title="Products By Customer" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::customernotorder" title="Customer Not Order" sortOrder="20" /> 
+					</resource>
+					<resource id="Lof_AdvancedReports::sales" title="Sales" sortOrder="10">
+						<resource id="Lof_AdvancedReports::salesoverview" title="Sales Overview" sortOrder="10" />
+						<resource id="Lof_AdvancedReports::salesstatistics" title="Sales Statistics" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbycustomergroup" title="Sales By Customer Group" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbyproducttype" title="Sales By Product Type" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbyhour" title="Sales By Hour" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbydayofweek" title="Sales By Day Of Week" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbyproduct" title="Sales By Product" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbycategory" title="Sales By Category" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbypaymenttype" title="Sales By Payment Type" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbycountry" title="Sales By Country" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesproductcountry" title="Sales Per Product Per Country" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbyregion" title="Sales By Region/State" sortOrder="20" />
+						<resource id="Lof_AdvancedReports::salesbyzipcode" title="Sales By Zipcode" sortOrder="20" /> 
+						<resource id="Lof_AdvancedReports::salesbycoupon" title="Sales By Coupon" sortOrder="20" />  
+					</resource> 
+					<resource id="Lof_AdvancedReports::testcron" title="Test Cron" sortOrder="20">
+						<resource id="Lof_AdvancedReports::testcronrun" title="Allow force run cron job" sortOrder="10" />
+					</resource>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Lof_AdvancedReports::config_reports" title="Config Lof Advanced Reports" />
+						</resource>
+					</resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

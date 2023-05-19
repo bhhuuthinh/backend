@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category   Landofcoder
+ * @package    Lof_AdvancedReports
+ * @copyright  Copyright (c) 2016 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+	<system>
+		<tab id="landofcoder" translate="label" sortOrder="400">
+			<label><![CDATA[Lof All - <a href="http://landofcoder.com" target="_BLANK" title=""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports">landofcoder.com</a>]]></label>
+		</tab>
+		<section id="advancedreports" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+			<label>Advanced Reports Pro</label>
+			<tab>landofcoder</tab>
+			<resource>Lof_AdvancedReports::advancedreports</resource>
+			<group id="charts_settings" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General Settings</label>
+				<field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="height" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Height (px)</label>
+					<comment><![CDATA[Chart Height. Default: 300px]]></comment>
+				</field>
+				<field id="color" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Chart Color</label>
+					<frontend_model>Lof\AdvancedReports\Block\Adminhtml\System\Config\Form\Field\Color</frontend_model>
+				</field>
+				<field id="font_color" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Font Color</label>
+					<frontend_model>Lof\AdvancedReports\Block\Adminhtml\System\Config\Form\Field\Color</frontend_model>
+				</field>
+				<field id="font_size" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Font size (px)</label>
+				</field>
+				<field id="background_color" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Background color</label>
+					<frontend_model>Lof\AdvancedReports\Block\Adminhtml\System\Config\Form\Field\Color</frontend_model>
+				</field>
+
+				<field id="margin" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Margin Profit</label>
+					<comment><![CDATA[Input the margin profits number (= Oher cost + Tax ). We use margin profits in order report to calcuate Net Profits, Net Income. Default = 0]]></comment>
+				</field>
+
+				<field id="low_stock_number" translate="label comment" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Low Stock Number</label>
+					<comment><![CDATA[Set qty to show low stock notification on Inventory Report. Default: 10]]></comment>
+				</field>
+			</group>
+			<group id="scheduled_email_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Scheduled Email Reports</label>
+				<field id="enable_cron_tab" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Cron Job</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<backend_model>Lof\AdvancedReports\Model\Config\Backend\Cron</backend_model>
+				</field>
+				<field id="reports_export" translate="label comment" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Reports to Export</label>
+					<source_model>Lof\AdvancedReports\Model\Config\Source\Mobilereports</source_model>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="email_recipients" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Recipients</label>
+					<comment><![CDATA[Use comma to add several Emails. Leave empty to disable.]]></comment>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="period" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Period</label>
+					<source_model>Lof\AdvancedReports\Model\Config\Source\ListPeriod</source_model>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="group_by" translate="label comment" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Group By</label>
+					<source_model>Lof\AdvancedReports\Model\Config\Source\ListGroupby</source_model>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="limit" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Limit Items</label>
+					<comment><![CDATA[Limit Report Result Items. Default: 100]]></comment>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="frequency" translate="label comment" type="select" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Frequency</label>
+					<source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+					<backend_model>Lof\AdvancedReports\Model\Config\Backend\Cron</backend_model>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="at_time" translate="label comment" type="time" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>At</label>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="file_format" translate="label comment" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>File Format</label>
+					<source_model>Lof\AdvancedReports\Model\Config\Source\ListFileFormat</source_model>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="copy_folder" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Copy all sent reports to this folder</label>
+					<comment><![CDATA[The path to the saved reports should be in your root_path_folder/var. This folder should be writable. Leave empty to disable.]]></comment>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="delete_old_file" translate="label comment" type="select" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Delete Old Backup File?</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="email_sender" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Sender</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="email_subject" translate="label comment" type="text" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Subject Prefix</label>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="email_template" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Template</label>
+					<comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+				<field id="enable_debug_log" translate="label comment" type="select" sortOrder="95" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Debug Log Files</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends><field id="enable_cron_tab">1</field></depends>
+				</field>
+			</group>
+			<group id="mobile_settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Mobile Settings</label>
+				<field id="allow_reports" translate="label comment" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+					<label>Allowed Reports On Mobile App</label>
+					<source_model>Lof\AdvancedReports\Model\Config\Source\Mobilereports</source_model>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>
