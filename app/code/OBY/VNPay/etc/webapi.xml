@@ -6,7 +6,7 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
-    <route method="POST" url="/V1/oby/vnpay/ipn/">
+    <route method="GET" url="/V1/oby/vnpay/ipn/">
         <service class="OBY\VNPay\Api\ApiInterface" method="ipn" />
         <resources>
             <resource ref="anonymous"/>
