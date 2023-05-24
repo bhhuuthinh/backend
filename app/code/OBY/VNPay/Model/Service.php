@@ -93,34 +93,22 @@ class Service implements ApiInterface
      */
     public function ipn()
     {    
-        $request   = $this->request->getContent();
-        $request   = json_decode($request, true);
-
-        $result_code    = $request['vnp_ResponseCode'];
-
+        $result_code    = $this->request->get('vnp_ResponseCode');
         header('Content-Type: application/json; charset=utf-8');
-
         if($result_code == GVnpay_Status::SUCCESS){
             // Update order
-            $orderId    = $request['vnp_TxnRef'];
+            $orderId    = $this->request->get('vnp_ResponseCode');
             /** @var Order $order*/
             $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
             $order->setStatus(Order::STATE_PROCESSING);
-
             $this->orderRepository->save($order);
-
-            header("HTTP/1.1 204");
-            exit;
         }
-        else{
-            $gateway = new GVnpay();
-            $response['resultCode']     = $result_code;
-            $response['message']        = $gateway->getErrorMsg($request['resultCode']);
-            ksort($response);
-            // $response['signature']      = $gateway->generateSignature($response);
-
-            die(json_encode($response));
-        }
+        
+        $gateway = new GVnpay();
+        $response['resultCode']     = $result_code;
+        $response['message']        = $gateway->getErrorMsg($response['resultCode']);
+        ksort($response);
+        die(json_encode($response));
     }
 
     /**
