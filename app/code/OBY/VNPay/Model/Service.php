@@ -139,8 +139,8 @@ class Service implements ApiInterface
 
         return_value:
         
-        $response['resultCode']     = $result_code;
-        $response['message']        = $gateway->getErrorMsg($result_code);
+        $response['RspCode']    = $result_code;
+        $response['Message']    = $gateway->getErrorMsg($result_code);
         ksort($response);
         die(json_encode($response));
     }
