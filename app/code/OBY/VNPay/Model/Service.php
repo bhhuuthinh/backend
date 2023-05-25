@@ -94,7 +94,6 @@ class Service implements ApiInterface
     public function ipn()
     {    
         $result_code    = $this->request->get('vnp_ResponseCode');
-        $response       = [];
 
         header('Content-Type: application/json; charset=utf-8');
 
@@ -127,6 +126,11 @@ class Service implements ApiInterface
                     goto return_value;
                 }
 
+                if($order->getStatus() == Order::STATE_PROCESSING){
+                    $result_code = GVnpay_Status::ORDER_COMFIRMED;
+                    goto return_value;
+                }
+
                 $order->setStatus(Order::STATE_PROCESSING);
                 $this->orderRepository->save($order);
                 $result_code    = GVnpay_Status::SUCCESS;
@@ -139,6 +143,7 @@ class Service implements ApiInterface
 
         return_value:
         
+        $response               = [];
         $response['RspCode']    = $result_code;
         $response['Message']    = $gateway->getErrorMsg($result_code);
         ksort($response);
