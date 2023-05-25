@@ -122,7 +122,9 @@ class GVnpay
             '75' => 'Ngân hàng thanh toán đang bảo trì.',
             '79' => 'Giao dịch không thành công do: KH nhập sai mật khẩu thanh toán quá số lần quy định. Xin quý khách vui lòng thực hiện lại giao dịch',
             '99' => 'Các lỗi khác (lỗi còn lại, không có trong danh sách mã lỗi đã liệt kê)',
-
+            GVnpay_Status::ORDER_NOT_FOUND  => 'Order not found',
+            GVnpay_Status::INVALID_AMOUNT  => 'Invalid amount',
+            GVnpay_Status::FAIL_CHECKSUM  => 'Invalid signature',
         ];
 
         return isset($errorList[$params]) ? $errorList[$params] : $this->failReason;
@@ -134,5 +136,30 @@ class GVnpay
 
         $new_status = $params;
         $this->status    = $new_status;
+    }
+
+    public function checkSum($inputData){
+        $sign = $inputData['vnp_SecureHash'];
+        unset($inputData['vnp_SecureHash']);
+        
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashdata .= urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        if (isset($this->secret_key)) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $this->secret_key);
+        }
+
+        return $sign == $vnpSecureHash;
     }
 }

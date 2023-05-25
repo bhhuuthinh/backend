@@ -94,19 +94,53 @@ class Service implements ApiInterface
     public function ipn()
     {    
         $result_code    = $this->request->get('vnp_ResponseCode');
+        $response       = [];
+
         header('Content-Type: application/json; charset=utf-8');
-        if($result_code == GVnpay_Status::SUCCESS){
-            // Update order
-            $orderId    = $this->request->get('vnp_ResponseCode');
-            /** @var Order $order*/
-            $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
-            $order->setStatus(Order::STATE_PROCESSING);
-            $this->orderRepository->save($order);
-        }
+
+        $config     = [];
+        $config['TmnCode'] = $this->getConfigValue('vnp_TmnCode');
+        $config['secret_key']  = $this->getConfigValue('secret_key');
+        $config['ipnUrl']      = $this->getConfigValue('ipn_url');
+        $config['Returnurl'] = $this->getConfigValue('vnp_Returnurl');
         
-        $gateway = new GVnpay();
+        $config['merchant_url'] = $this->getConfigValue('sandbox_flag') == 1 ? $this->getConfigValue('sandbox_payment_url') : $this->getConfigValue('payment_url');
+
+        $gateway    = new GVnpay($config);
+        // checksum
+        if(!$gateway->checkSum($_GET)){
+            $result_code = GVnpay_Status::FAIL_CHECKSUM;
+            goto return_value;
+        }
+
+        if($result_code == GVnpay_Status::SUCCESS){
+            // $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
+            try {
+                // Update order
+                $orderId    = $this->request->get('vnp_TxnRef');
+
+                /** @var Order $order*/
+                $order = $this->orderRepository->get($orderId);
+
+                if(round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')){
+                    $result_code = GVnpay_Status::INVALID_AMOUNT;
+                    goto return_value;
+                }
+
+                $order->setStatus(Order::STATE_PROCESSING);
+                $this->orderRepository->save($order);
+                $result_code    = GVnpay_Status::SUCCESS;
+                goto return_value;
+            } catch (Exception $e) {
+                $result_code    = GVnpay_Status::ORDER_NOT_FOUND;
+                goto return_value;
+            }
+        }
+
+        return_value:
+        
         $response['resultCode']     = $result_code;
-        $response['message']        = $gateway->getErrorMsg($response['resultCode']);
+        $response['message']        = $gateway->getErrorMsg($result_code);
         ksort($response);
         die(json_encode($response));
     }
