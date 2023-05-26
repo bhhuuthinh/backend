@@ -126,7 +126,7 @@ class GVnpay
             GVnpay_Status::INVALID_AMOUNT  => 'Invalid amount',
             GVnpay_Status::FAIL_CHECKSUM  => 'Invalid signature',
             GVnpay_Status::SUCCESS  => 'Confirm Success',
-            GVnpay_Status::ORDER_COMFIRMED  => 'Order already confirmed',
+            GVnpay_Status::ORDER_CONFIRMED  => 'Order already confirmed',
         ];
 
         return isset($errorList[$params]) ? $errorList[$params] : $this->failReason;

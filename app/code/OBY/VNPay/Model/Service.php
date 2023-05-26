@@ -112,37 +112,43 @@ class Service implements ApiInterface
             goto return_value;
         }
 
-        if($result_code == GVnpay_Status::SUCCESS){
-            // $order = ObjectManager::getInstance()->create(Order::class)->load($orderId);
-            try {
-                // Update order
-                $orderId    = $this->request->get('vnp_TxnRef');
+        try {
+            // Update order
+            $orderId    = $this->request->get('vnp_TxnRef');
 
-                /** @var Order $order*/
-                $order = $this->orderRepository->get($orderId);
+            /** @var Order $order*/
+            $order = $this->orderRepository->get($orderId);
 
-                if(round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')){
-                    $result_code = GVnpay_Status::INVALID_AMOUNT;
-                    goto return_value;
-                }
+            if($order->getStatus() == Order::STATE_PROCESSING || $order->getStatus() == Order::STATE_CANCELED){
+                $result_code = GVnpay_Status::ORDER_CONFIRMED;
+                goto return_value;
+            }
 
-                if($order->getStatus() == Order::STATE_PROCESSING){
-                    $result_code = GVnpay_Status::ORDER_COMFIRMED;
-                    goto return_value;
-                }
+            if(round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')){
+                $result_code = GVnpay_Status::INVALID_AMOUNT;
+                goto return_value;
+            }
 
+            if($result_code == GVnpay_Status::SUCCESS)
+            {
+                // Payment success
                 $order->setStatus(Order::STATE_PROCESSING);
                 $this->orderRepository->save($order);
                 $result_code    = GVnpay_Status::SUCCESS;
                 goto return_value;
-            } catch (Exception $e) {
-                $result_code    = GVnpay_Status::ORDER_NOT_FOUND;
+            } else {
+                // Payment fail
+                $order->setStatus(Order::STATE_CANCELED);
+                $this->orderRepository->save($order);
+                $result_code    = GVnpay_Status::SUCCESS;
                 goto return_value;
             }
+        } catch (Exception $e) {
+            $result_code    = GVnpay_Status::ORDER_NOT_FOUND;
+            goto return_value;
         }
 
         return_value:
-        
         $response               = [];
         $response['RspCode']    = $result_code;
         $response['Message']    = $gateway->getErrorMsg($result_code);
