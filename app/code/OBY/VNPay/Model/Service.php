@@ -119,13 +119,13 @@ class Service implements ApiInterface
             /** @var Order $order*/
             $order = $this->orderRepository->get($orderId);
 
-            if($order->getStatus() == Order::STATE_PROCESSING || $order->getStatus() == Order::STATE_CANCELED){
-                $result_code = GVnpay_Status::ORDER_CONFIRMED;
+            if(round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')){
+                $result_code = GVnpay_Status::INVALID_AMOUNT;
                 goto return_value;
             }
 
-            if(round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')){
-                $result_code = GVnpay_Status::INVALID_AMOUNT;
+            if($order->getStatus() == Order::STATE_PROCESSING || $order->getStatus() == Order::STATE_CANCELED){
+                $result_code = GVnpay_Status::ORDER_CONFIRMED;
                 goto return_value;
             }
 
