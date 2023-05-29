@@ -68,6 +68,16 @@ class Service implements ApiInterface
             $payment    = new GVnpay($config);
             $payment->pay();
 
+            $dir    = '../var/log/vnpay';
+            if ( !is_dir( $dir ) ) {
+                mkdir( $dir );       
+            }
+            $dir .= '/'.date("mY", time());
+            if ( !is_dir( $dir ) ) {
+                mkdir( $dir );       
+            }
+            file_put_contents($dir.'/create_order_'.$this->request->get('vnp_TxnRef').'.log', $payment->process3d_url);
+
             if($payment->status == GVnpay_Status::SUCCESS){
                 $data = [
                     'success' => true,
@@ -94,6 +104,15 @@ class Service implements ApiInterface
     public function ipn()
     {   
         try {
+            $dir    = '../var/log/vnpay';
+            if ( !is_dir( $dir ) ) {
+                mkdir( $dir );       
+            }
+            $dir .= '/'.date("mY", time());
+            if ( !is_dir( $dir ) ) {
+                mkdir( $dir );       
+            }
+            file_put_contents($dir.'/ipn_'.$this->request->get('vnp_TxnRef').'.log', json_encode($_GET));
 
             $result_code    = $this->request->get('vnp_ResponseCode');
 
