@@ -10,4 +10,5 @@ final class GVnpay_Status {
     const INVALID_AMOUNT = '04';
     const FAIL_CHECKSUM = '97';
     const ORDER_CONFIRMED = '02';
+    const OTHER_ERROR = '99';
 }

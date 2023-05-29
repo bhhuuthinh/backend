@@ -92,59 +92,65 @@ class Service implements ApiInterface
      * @inheritdoc
      */
     public function ipn()
-    {    
-        $result_code    = $this->request->get('vnp_ResponseCode');
-
-        header('Content-Type: application/json; charset=utf-8');
-
-        $config     = [];
-        $config['TmnCode'] = $this->getConfigValue('vnp_TmnCode');
-        $config['secret_key']  = $this->getConfigValue('secret_key');
-        $config['ipnUrl']      = $this->getConfigValue('ipn_url');
-        $config['Returnurl'] = $this->getConfigValue('vnp_Returnurl');
-        
-        $config['merchant_url'] = $this->getConfigValue('sandbox_flag') == 1 ? $this->getConfigValue('sandbox_payment_url') : $this->getConfigValue('payment_url');
-
-        $gateway    = new GVnpay($config);
-        // checksum
-        if(!$gateway->checkSum($_GET)){
-            $result_code = GVnpay_Status::FAIL_CHECKSUM;
-            goto return_value;
-        }
-
+    {   
         try {
-            // Update order
-            $orderId    = $this->request->get('vnp_TxnRef');
 
-            /** @var Order $order*/
-            $order = $this->orderRepository->get($orderId);
+            $result_code    = $this->request->get('vnp_ResponseCode');
 
-            if(round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')){
-                $result_code = GVnpay_Status::INVALID_AMOUNT;
+            header('Content-Type: application/json; charset=utf-8');
+
+            $config     = [];
+            $config['TmnCode'] = $this->getConfigValue('vnp_TmnCode');
+            $config['secret_key']  = $this->getConfigValue('secret_key');
+            $config['ipnUrl']      = $this->getConfigValue('ipn_url');
+            $config['Returnurl'] = $this->getConfigValue('vnp_Returnurl');
+            
+            $config['merchant_url'] = $this->getConfigValue('sandbox_flag') == 1 ? $this->getConfigValue('sandbox_payment_url') : $this->getConfigValue('payment_url');
+
+            $gateway    = new GVnpay($config);
+            // checksum
+            if(!$gateway->checkSum($_GET)){
+                $result_code = GVnpay_Status::FAIL_CHECKSUM;
                 goto return_value;
             }
 
-            if($order->getStatus() == Order::STATE_PROCESSING || $order->getStatus() == Order::STATE_CANCELED){
-                $result_code = GVnpay_Status::ORDER_CONFIRMED;
-                goto return_value;
-            }
+            try {
+                // Update order
+                $orderId    = $this->request->get('vnp_TxnRef');
 
-            if($result_code == GVnpay_Status::SUCCESS)
-            {
-                // Payment success
-                $order->setStatus(Order::STATE_PROCESSING);
-                $this->orderRepository->save($order);
-                $result_code    = GVnpay_Status::SUCCESS;
-                goto return_value;
-            } else {
-                // Payment fail
-                $order->setStatus(Order::STATE_CANCELED);
-                $this->orderRepository->save($order);
-                $result_code    = GVnpay_Status::SUCCESS;
+                /** @var Order $order*/
+                $order = $this->orderRepository->get($orderId);
+
+                if(round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')){
+                    $result_code = GVnpay_Status::INVALID_AMOUNT;
+                    goto return_value;
+                }
+
+                if($order->getStatus() == Order::STATE_PROCESSING || $order->getStatus() == Order::STATE_CANCELED){
+                    $result_code = GVnpay_Status::ORDER_CONFIRMED;
+                    goto return_value;
+                }
+
+                if($result_code == GVnpay_Status::SUCCESS)
+                {
+                    // Payment success
+                    $order->setStatus(Order::STATE_PROCESSING);
+                    $this->orderRepository->save($order);
+                    $result_code    = GVnpay_Status::SUCCESS;
+                    goto return_value;
+                } else {
+                    // Payment fail
+                    $order->setStatus(Order::STATE_CANCELED);
+                    $this->orderRepository->save($order);
+                    $result_code    = GVnpay_Status::SUCCESS;
+                    goto return_value;
+                }
+            } catch (Exception $e2) {
+                $result_code    = GVnpay_Status::ORDER_NOT_FOUND;
                 goto return_value;
             }
         } catch (Exception $e) {
-            $result_code    = GVnpay_Status::ORDER_NOT_FOUND;
+            $result_code    = GVnpay_Status::OTHER_ERROR;
             goto return_value;
         }
 
