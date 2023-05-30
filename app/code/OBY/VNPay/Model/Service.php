@@ -51,20 +51,6 @@ class Service implements ApiInterface
      */
     public function createOrder($orderId)
     {
-        if(!in_array($_SERVER['REMOTE_ADDR'], [
-            '113.160.92.202',
-            '113.52.45.78',
-            '116.97.245.130',
-            '42.118.107.252',
-            '113.20.97.250',
-            '203.171.19.146',
-            '103.220.87.4',
-            '103.220.86.4',
-        ]))
-        {
-            http_response_code(404);
-            die();
-        }
         try {
             // Implement Your Code here
             /** @var Order $order*/
@@ -76,23 +62,23 @@ class Service implements ApiInterface
             $config['amount']      = $order->getTotalDue();
             $config['ipnUrl']      = $this->getConfigValue('ipn_url');
             $config['Returnurl'] = $this->getConfigValue('vnp_Returnurl');
-            
+
             $config['merchant_url'] = $this->getConfigValue('sandbox_flag') == 1 ? $this->getConfigValue('sandbox_payment_url') : $this->getConfigValue('payment_url');
 
             $payment    = new GVnpay($config);
             $payment->pay();
 
             $dir    = '../var/log/vnpay';
-            if ( !is_dir( $dir ) ) {
-                mkdir( $dir );       
+            if (!is_dir($dir)) {
+                mkdir($dir);
             }
-            $dir .= '/'.date("mY", time());
-            if ( !is_dir( $dir ) ) {
-                mkdir( $dir );       
+            $dir .= '/' . date("mY", time());
+            if (!is_dir($dir)) {
+                mkdir($dir);
             }
-            file_put_contents($dir.'/create_order_'.$order->getId().'.log', $payment->process3d_url);
+            file_put_contents($dir . '/create_order_' . $order->getId() . '.log', $payment->process3d_url);
 
-            if($payment->status == GVnpay_Status::SUCCESS){
+            if ($payment->status == GVnpay_Status::SUCCESS) {
                 $data = [
                     'success' => true,
                     'process3d_url' => $payment->process3d_url,
@@ -102,7 +88,7 @@ class Service implements ApiInterface
             }
         } catch (\Exception $e) {
             $data = [
-                'success' => false, 
+                'success' => false,
                 'message' => $e->getMessage()
             ];
             $this->logger->log($e->getMessage());
@@ -116,17 +102,31 @@ class Service implements ApiInterface
      * @inheritdoc
      */
     public function ipn()
-    {   
+    {
+
+        if (!in_array($_SERVER['REMOTE_ADDR'], [
+            '113.160.92.202',
+            '113.52.45.78',
+            '116.97.245.130',
+            '42.118.107.252',
+            '113.20.97.250',
+            '203.171.19.146',
+            '103.220.87.4',
+            '103.220.86.4',
+        ])) {
+            http_response_code(404);
+            die();
+        }
         try {
             $dir    = '../var/log/vnpay';
-            if ( !is_dir( $dir ) ) {
-                mkdir( $dir );       
+            if (!is_dir($dir)) {
+                mkdir($dir);
             }
-            $dir .= '/'.date("mY", time());
-            if ( !is_dir( $dir ) ) {
-                mkdir( $dir );       
+            $dir .= '/' . date("mY", time());
+            if (!is_dir($dir)) {
+                mkdir($dir);
             }
-            file_put_contents($dir.'/ipn_'.$this->request->get('vnp_TxnRef').'.log', json_encode($_GET));
+            file_put_contents($dir . '/ipn_' . $this->request->get('vnp_TxnRef') . '.log', json_encode($_GET));
 
             $result_code    = $this->request->get('vnp_ResponseCode');
 
@@ -137,12 +137,12 @@ class Service implements ApiInterface
             $config['secret_key']  = $this->getConfigValue('secret_key');
             $config['ipnUrl']      = $this->getConfigValue('ipn_url');
             $config['Returnurl'] = $this->getConfigValue('vnp_Returnurl');
-            
+
             $config['merchant_url'] = $this->getConfigValue('sandbox_flag') == 1 ? $this->getConfigValue('sandbox_payment_url') : $this->getConfigValue('payment_url');
 
             $gateway    = new GVnpay($config);
             // checksum
-            if(!$gateway->checkSum($_GET)){
+            if (!$gateway->checkSum($_GET)) {
                 $result_code = GVnpay_Status::FAIL_CHECKSUM;
                 goto return_value;
             }
@@ -154,18 +154,17 @@ class Service implements ApiInterface
                 /** @var Order $order*/
                 $order = $this->orderRepository->get($orderId);
 
-                if(round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')){
+                if (round($order->getTotalDue()) * 100 != $this->request->get('vnp_Amount')) {
                     $result_code = GVnpay_Status::INVALID_AMOUNT;
                     goto return_value;
                 }
 
-                if($order->getStatus() == Order::STATE_PROCESSING || $order->getStatus() == Order::STATE_CANCELED){
+                if ($order->getStatus() == Order::STATE_PROCESSING || $order->getStatus() == Order::STATE_CANCELED) {
                     $result_code = GVnpay_Status::ORDER_CONFIRMED;
                     goto return_value;
                 }
 
-                if($result_code == GVnpay_Status::SUCCESS)
-                {
+                if ($result_code == GVnpay_Status::SUCCESS) {
                     // Payment success
                     $order->setStatus(Order::STATE_PROCESSING);
                     $this->orderRepository->save($order);
