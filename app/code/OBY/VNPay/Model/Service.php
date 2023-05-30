@@ -76,7 +76,7 @@ class Service implements ApiInterface
             if ( !is_dir( $dir ) ) {
                 mkdir( $dir );       
             }
-            file_put_contents($dir.'/create_order_'.$this->request->get('vnp_TxnRef').'.log', $payment->process3d_url);
+            file_put_contents($dir.'/create_order_'.$order->getId().'.log', $payment->process3d_url);
 
             if($payment->status == GVnpay_Status::SUCCESS){
                 $data = [
