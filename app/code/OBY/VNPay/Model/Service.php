@@ -51,6 +51,20 @@ class Service implements ApiInterface
      */
     public function createOrder($orderId)
     {
+        if(!in_array($_SERVER['REMOTE_ADDR'], [
+            '113.160.92.202',
+            '113.52.45.78',
+            '116.97.245.130',
+            '42.118.107.252',
+            '113.20.97.250',
+            '203.171.19.146',
+            '103.220.87.4',
+            '103.220.86.4',
+        ]))
+        {
+            http_response_code(404);
+            die();
+        }
         try {
             // Implement Your Code here
             /** @var Order $order*/
