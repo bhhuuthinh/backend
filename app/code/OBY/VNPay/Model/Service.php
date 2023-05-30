@@ -126,7 +126,7 @@ class Service implements ApiInterface
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
-            file_put_contents($dir . '/ipn_' . $this->request->get('vnp_TxnRef') . '.log', json_encode($_GET));
+            file_put_contents($dir . '/ipn_' . $this->request->get('vnp_TxnRef') . '.log', $_SERVER['REMOTE_ADDR'].json_encode($_GET));
 
             $result_code    = $this->request->get('vnp_ResponseCode');
 
