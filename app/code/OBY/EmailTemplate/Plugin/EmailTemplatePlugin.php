@@ -20,7 +20,7 @@ class EmailTemplatePlugin
         $templateVars
     ) {
         $customData = $this->customModel->getCustomData();
-        $templateVars['custom_variable'] = $customData;
+        $templateVars['custom_variable'] = 'TEST';//$customData;
 
         return $templateVars;
     }
