@@ -92,7 +92,7 @@ class Service implements ApiInterface
                 "products"  => $products,
                 "order"  => $order,
             ]);
-            return json_encode($res);
+            return [$res];
             
             $payment = new stdClass();
             if($payment->status == 0){
@@ -112,7 +112,7 @@ class Service implements ApiInterface
         }
 
         header('Content-Type: application/json; charset=utf-8');
-        return json_encode($data);
+        return [$data];
     }
 
     /**
