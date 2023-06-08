@@ -16,6 +16,7 @@ class ApiCall
     private function buildHeaders(){
         return [
 			'Token' => $this->token_key,
+            "Content-Type"  => "application/json",
 		];
     }
 
