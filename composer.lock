@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5fcf9f88d711e183c7fbdd65431dfa0e",
+    "content-hash": "10a14956a58c9d993a54fe5c170b17e1",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1386,6 +1386,52 @@
                 }
             ],
             "time": "2022-06-20T21:43:03+00:00"
+        },
+        {
+            "name": "jmango360/api",
+            "version": "2.1.42",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.jmango360.com/m2repo/m2repo",
+                "reference": "5b07783d0f11be99037cac72ec5e7c1b642a0473"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Jmango360\\Japi\\": ""
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "JMango360 API module",
+            "time": "2023-06-07T04:54:00+00:00"
+        },
+        {
+            "name": "jmango360/onepage",
+            "version": "2.1.41",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.jmango360.com/m2repo/m2onepage",
+                "reference": "482aa423f1d69e0d67cb5717efd15b5b7ac00902"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Jmango360\\Onepage\\": ""
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "JMango360 Onepage Checkout module",
+            "time": "2023-04-28T09:22:40+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
