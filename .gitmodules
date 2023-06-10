@@ -1,0 +1,3 @@
+[submodule "app/code/Mageprince/BuyNow"]
+	path = app/code/Mageprince/BuyNow
+	url = https://github.com/mageprince/magento2-buynow.git
