@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10a14956a58c9d993a54fe5c170b17e1",
+    "content-hash": "cb66353ffcafc90a8085c1eb6c85a385",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -822,6 +822,41 @@
                 }
             ],
             "time": "2021-03-25T17:01:18+00:00"
+        },
+        {
+            "name": "divante/magento2-review-api",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DivanteLtd/magento2-review-api.git",
+                "reference": "441496788aed74b575d7135216a59a71301eb309"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DivanteLtd/magento2-review-api/zipball/441496788aed74b575d7135216a59a71301eb309",
+                "reference": "441496788aed74b575d7135216a59a71301eb309",
+                "shasum": ""
+            },
+            "require": {
+                "magento/module-review": ">=100.2.0",
+                "php": "~7.1|~8.1"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "src/registration.php"
+                ],
+                "psr-4": {
+                    "Divante\\ReviewApi\\": "/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Review WebAPI",
+            "support": {
+                "issues": "https://github.com/DivanteLtd/magento2-review-api/issues",
+                "source": "https://github.com/DivanteLtd/magento2-review-api/tree/1.6.0"
+            },
+            "time": "2023-05-26T12:15:36+00:00"
         },
         {
             "name": "elasticsearch/elasticsearch",

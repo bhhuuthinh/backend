@@ -39,6 +39,7 @@
         "colinmollenhour/credis": "1.11.1",
         "colinmollenhour/php-redis-session-abstract": "~1.4.0",
         "composer/composer": "^1.9 || ^2.0",
+        "divante/magento2-review-api": "^1.6",
         "elasticsearch/elasticsearch": "~7.11.0",
         "guzzlehttp/guzzle": "^6.3.3",
         "jmango360/api": "^2.1",
