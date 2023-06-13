@@ -96,6 +96,7 @@ class Service implements ApiInterface
             $_order["tel"]              = $order->getShippingAddress()->getTelephone();
             $_order["email"]            = $order->getEmailCustomerNote();
             // $_order["is_freeship"]      = 0;
+            $_order["total_weight"]     = 1;
 
             if($this->_code == ShippingXfast::DELIVER_OPTION){
                 $_order["pick_money"]       = round($order->getShippingAmount());
