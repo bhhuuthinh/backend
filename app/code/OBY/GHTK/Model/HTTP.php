@@ -64,7 +64,7 @@ class HTTP
         $uri        = (!empty($uri)) ? '?'.$uri : $uri;
 
         $params     = is_array($params) ? json_encode($params, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS) : $params;
-
+        // echo $params; die();
         $curl   = curl_init();
         $curlopt_array  = [
             CURLOPT_URL => $this->url . $end_point . $uri,
