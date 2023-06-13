@@ -75,7 +75,7 @@ class Service implements ApiInterface
             }
                 
             $_order   = [];
-            $_order["id"]               = $order->getId();
+            $_order["id"]               = $order->getId().'-'.time();
             $_order["pick_name"]        = "Ông Bà Yêu";
             
             $_order["pick_address_id"]  = 16927840;
