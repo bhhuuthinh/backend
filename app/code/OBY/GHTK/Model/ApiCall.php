@@ -11,7 +11,7 @@ class ApiCall
     private $http;
 
     private const ACTION_SERVICES_SHIPMENT_FEE = '/services/shipment/fee';
-    private const ACTION_SERVICES_CREATE_ORDER = '/services/shipment/order/?ver=1.5';
+    private const ACTION_SERVICES_CREATE_ORDER = '/services/shipment/order';
 
     private function buildHeaders(){
         return [
