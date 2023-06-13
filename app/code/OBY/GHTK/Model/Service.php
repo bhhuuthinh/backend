@@ -65,17 +65,17 @@ class Service implements ApiInterface
             $items      = $order->getItems();
             $products   = [];
 
-            // foreach($items as $item){
-            //     $_product['name']           = $item->getName();
-            //     $_product['weight']         = $item->getWeight() ?? 0.2;
-            //     $_product['quantity']       = round($item->getQtyOrdered(), 0);
-            //     $_product['product_code']   = $item->getItemId();
+            foreach($items as $item){
+                $_product['name']           = $item->getName();
+                $_product['weight']         = $item->getWeight() ?? 0.2;
+                $_product['quantity']       = round($item->getQtyOrdered(), 0);
+                $_product['product_code']   = $item->getItemId();
 
-            //     $products[] = $_product;
-            // }
+                $products[] = $_product;
+            }
                 
             $_order   = [];
-            $_order["id"]               = $order->getId();
+            $_order["id"]               = $order->getId().'-'.time();
             $_order["pick_name"]        = "Ông Bà Yêu";
             
             $_order["pick_address_id"]  = 16927840;
@@ -96,6 +96,7 @@ class Service implements ApiInterface
             $_order["tel"]              = $order->getShippingAddress()->getTelephone();
             $_order["email"]            = $order->getEmailCustomerNote();
             // $_order["is_freeship"]      = 0;
+            // $_order["total_weight"]     = 1;
 
             if($this->_code == ShippingXfast::DELIVER_OPTION){
                 $_order["pick_money"]       = round($order->getShippingAmount());
