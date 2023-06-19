@@ -959,7 +959,7 @@ class BlogRepository implements BlogRepositoryInterface
         
         return [
             'items' => $collection->getItems(),
-            'last_page' => $collection->getLastPageNumber(),
+            // 'last_page' => $collection->getLastPageNumber(),
         ];
     }
 }
