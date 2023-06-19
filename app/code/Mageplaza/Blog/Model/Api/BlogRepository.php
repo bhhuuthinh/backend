@@ -629,9 +629,6 @@ class BlogRepository implements BlogRepositoryInterface
         $category_factory   = $this->_helperData->getFactoryByType('category');
         $category           = $category_factory->create()->load($categoryId);
         
-        $page  = $this->_request->getParam('page', 1);
-        $limit = $this->_request->getParam('limit', 10);
-        
         /** @var AbstractCollection collection  */
         $collection = $category->getSelectedPostsCollection();
 
