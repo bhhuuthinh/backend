@@ -956,10 +956,7 @@ class BlogRepository implements BlogRepositoryInterface
         $limit = $this->_request->getParam('limit', 10);
 
         $collection->getSelect()->limitPage($page, $limit);
-        
-        return [
-            'items' => $collection->getItems(),
-            // 'last_page' => $collection->getLastPageNumber(),
-        ];
+
+        return $collection->getItems();
     }
 }

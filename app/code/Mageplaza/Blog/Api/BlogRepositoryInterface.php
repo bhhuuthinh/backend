@@ -32,7 +32,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 interface BlogRepositoryInterface
 {
     /**
-     * @return \Mageplaza\Blog\Api\Data\PostInterface[]
+     * @return mixed
      */
     public function getAllPost();
 
