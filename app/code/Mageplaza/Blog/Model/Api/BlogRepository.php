@@ -141,10 +141,20 @@ class BlogRepository implements BlogRepositoryInterface
     public function getAllPost()
     {
         $collection = $this->_helperData->getFactoryByType()->create()->getCollection();
+        $items  = $this->getAllItem($collection);
+        $new_items  = [];
+        foreach($items as $item)
+        {
+            /** @var DataObject $item */
+            $new_items[]    =  $item->convertToArray();
+        }
         $data   = new DataObject([
-            'items' => $this->getAllItem($collection)
+            [
+                'items'    => $new_items,
+                'last_page' => $collection->getLastPageNumber(),
+            ]
         ]);
-        return $data;
+        return $data->convertToArray();
     }
 
     /**
@@ -952,13 +962,14 @@ class BlogRepository implements BlogRepositoryInterface
      *
      * @return mixed
      */
-    protected function getAllItem($collection)
+    protected function getAllItem(&$collection)
     {
         $page  = $this->_request->getParam('page', 1);
         $limit = $this->_request->getParam('limit', 10);
 
         $collection->getSelect()->limitPage($page, $limit);
-
+        $collection->setPageSize($limit);
+        
         return $collection->getItems();
     }
 }
