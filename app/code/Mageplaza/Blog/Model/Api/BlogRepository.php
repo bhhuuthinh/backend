@@ -141,8 +141,10 @@ class BlogRepository implements BlogRepositoryInterface
     public function getAllPost()
     {
         $collection = $this->_helperData->getFactoryByType()->create()->getCollection();
-
-        return $this->getAllItem($collection);
+        $data   = new DataObject([
+            'items' => $this->getAllItem($collection)
+        ]);
+        return $data;
     }
 
     /**
