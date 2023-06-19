@@ -48,6 +48,7 @@ use Mageplaza\Blog\Model\BlogConfig;
 use Mageplaza\Blog\Model\MonthlyArchive;
 use Mageplaza\Blog\Block\MonthlyArchive\Widget as MonthlyWidget;
 use Mageplaza\Blog\Model\PostLikeFactory;
+use Mageplaza\Blog\Model\CategoryFactory;
 
 /**
  * Class BlogRepository
@@ -145,8 +146,14 @@ class BlogRepository implements BlogRepositoryInterface
         $new_items  = [];
         foreach($items as $item)
         {
-            /** @var DataObject $item */
-            $new_items[]    =  $item->convertToArray();
+            /** @var PostInterface $item */
+            $arr    = $item->convertToArray();
+            $arr[PostInterface::CATEGORY_IDS]   = $item->getCategoryIds();
+            $arr[PostInterface::TOPIC_IDS]      = $item->getTopicIds();
+            $arr[PostInterface::TAG_IDS]        = $item->getTagIds();
+            // $arr[PostInterface::CATEGORY_IDS]   = $item->getCategoryIds();
+            // $arr[PostInterface::CATEGORY_IDS]   = $item->getCategoryIds();
+            $new_items[]    = $arr;
         }
         $data   = new DataObject([
             [
@@ -618,9 +625,36 @@ class BlogRepository implements BlogRepositoryInterface
      */
     public function getPostsByCategoryId($categoryId)
     {
-        $category = $this->_helperData->getFactoryByType('category')->create()->load($categoryId);
+        /** @var CategoryFactory category_factory  */
+        $category_factory   = $this->_helperData->getFactoryByType('category');
+        $category           = $category_factory->create()->load($categoryId);
+        
+        $page  = $this->_request->getParam('page', 1);
+        $limit = $this->_request->getParam('limit', 10);
+        
+        /** @var AbstractCollection collection  */
+        $collection = $category->getSelectedPostsCollection();
 
-        return $category->getSelectedPostsCollection()->getItems();
+        $items  = $this->getAllItem($collection);
+        $new_items  = [];
+        foreach($items as $item)
+        {
+            /** @var PostInterface $item */
+            $arr    = $item->convertToArray();
+            $arr[PostInterface::CATEGORY_IDS]   = $item->getCategoryIds();
+            $arr[PostInterface::TOPIC_IDS]      = $item->getTopicIds();
+            $arr[PostInterface::TAG_IDS]        = $item->getTagIds();
+            // $arr[PostInterface::CATEGORY_IDS]   = $item->getCategoryIds();
+            // $arr[PostInterface::CATEGORY_IDS]   = $item->getCategoryIds();
+            $new_items[]    = $arr;
+        }
+        $data   = new DataObject([
+            [
+                'items'    => $new_items,
+                'last_page' => $collection->getLastPageNumber(),
+            ]
+        ]);
+        return $data->convertToArray();
     }
 
     /**

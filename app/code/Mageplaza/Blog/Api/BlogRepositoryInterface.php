@@ -312,7 +312,7 @@ interface BlogRepositoryInterface
     /**
      * @param string $categoryId
      *
-     * @return \Mageplaza\Blog\Api\Data\PostInterface[]
+     * @return \Magento\Framework\DataObject
      */
     public function getPostsByCategoryId($categoryId);
 
