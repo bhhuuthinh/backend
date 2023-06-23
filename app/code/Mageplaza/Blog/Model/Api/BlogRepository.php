@@ -49,6 +49,7 @@ use Mageplaza\Blog\Model\MonthlyArchive;
 use Mageplaza\Blog\Block\MonthlyArchive\Widget as MonthlyWidget;
 use Mageplaza\Blog\Model\PostLikeFactory;
 use Mageplaza\Blog\Model\CategoryFactory;
+use Mageplaza\Blog\Model\ResourceModel\Post\Collection;
 
 /**
  * Class BlogRepository
@@ -141,7 +142,10 @@ class BlogRepository implements BlogRepositoryInterface
      */
     public function getAllPost()
     {
+        /** @var Collection $collection */
         $collection = $this->_helperData->getFactoryByType()->create()->getCollection();
+        $collection->addOrder('post_id', Collection::SORT_ORDER_DESC);
+
         $items  = $this->getAllItem($collection);
         $new_items  = [];
         foreach($items as $item)
