@@ -22,7 +22,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
     protected $configHelper;
     protected $_errors = [];
     protected $_isFixed = true;
-    
+
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory $rateErrorFactory,
@@ -72,7 +72,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
     public function getAllowedMethods()
     {
     }
-    
+
     public function collectRates(RateRequest $request)
     {
         if (!$this->getConfigFlag('active')) {
@@ -86,7 +86,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
 
         $instance   = new ApiCall($this->getConfigData('base_url'), $this->getConfigData('token_key'));
         $res        = $instance->ServicesShipmentFee([
-            'pick_address_id'	=> 16927840,
+            'pick_address_id'	=> $this->getConfigValue('pick_address_id'),
 			'address'			=> $request->getDestStreet(),
 			'district'			=> $request->getDestRegionCode(),
 			'province'			=> $request->getDestCity(),
@@ -119,7 +119,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
 
         return $result;
     }
-    
+
     public function proccessAdditionalValidation(\Magento\Framework\DataObject $request) {
         return true;
     }
