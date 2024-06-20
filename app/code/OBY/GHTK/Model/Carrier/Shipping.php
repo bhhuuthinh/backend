@@ -87,7 +87,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
 
         $instance   = new ApiCall($this->getConfigData('base_url'), $this->getConfigData('token_key'));
         $res        = $instance->ServicesShipmentFee([
-            'pick_address_id'	=> $this->getConfigValue('pick_address_id'),
+            'pick_address_id'	=> $this->getConfigData('pick_address_id'),
 			'address'			=> $request->getDestStreet(),
 			'district'			=> $request->getDestRegionCode(),
 			'province'			=> $request->getDestCity(),
