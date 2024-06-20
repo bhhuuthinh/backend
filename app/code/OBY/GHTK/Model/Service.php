@@ -73,18 +73,13 @@ class Service implements ApiInterface
 
                 $products[] = $_product;
             }
-                
+
             $_order   = [];
             $_order["id"]               = $order->getId().'-'.time();
             $_order["pick_name"]        = "Ông Bà Yêu";
-            
-            $_order["pick_address_id"]  = 16927840;
-            $_order["pick_address"]     = "71/3 Nguyen Van Thuong";
-            $_order["pick_province"]    = "TP Hồ Chí Minh";
-            $_order["pick_district"]    = "Quận Bình Thạnh";
-            $_order["pick_ward"]        = "Phường 25";
 
-            $_order["pick_tel"]         = "0789279669";
+            $_order["pick_address_id"]  = $this->getConfigValue('pick_address_id');
+            $_order["pick_tel"]         = $this->getConfigValue('pick_tel');
 
             $_order["name"]             = $order->getShippingAddress()->getName();
             $_order["address"]          = $order->getShippingAddress()->getStreetLine(1);
@@ -128,7 +123,7 @@ class Service implements ApiInterface
             }
         } catch (\Exception $e) {
             $data = [
-                'success' => false, 
+                'success' => false,
                 'message' => $e->getMessage()
             ];
             $this->logger->log($e->getMessage());
