@@ -121,7 +121,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
         return $result;
     }
 
-    public function proccessAdditionalValidation(\Magento\Framework\DataObject $request) {
+    public function processAdditionalValidation(\Magento\Framework\DataObject $request) {
         return true;
     }
 }
