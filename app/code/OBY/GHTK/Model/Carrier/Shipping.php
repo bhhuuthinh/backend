@@ -71,6 +71,7 @@ class Shipping extends AbstractGhtk implements CarrierInterface
 
     public function getAllowedMethods()
     {
+        return [$this->_code => $this->getConfigData('name')];
     }
 
     public function collectRates(RateRequest $request)
