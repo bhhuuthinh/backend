@@ -5,7 +5,7 @@ use Magento\Shipping\Model\Carrier\CarrierInterface;
 
 class ShippingXfast extends Shipping implements CarrierInterface
 {
-    const CODE = 'ghtk_xfast';
+    const CODE = 'ghtkxfast';
     const DELIVER_OPTION = 'xteam';
     protected $_code = self::CODE;
 }

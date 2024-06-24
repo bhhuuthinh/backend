@@ -76,7 +76,7 @@ class Service implements ApiInterface
 
             $_order   = [];
             $_order["id"]               = $order->getId().'-'.time();
-            $_order["pick_name"]        = "Ông Bà Yêu";
+            $_order["pick_name"]        = "Agriamazing";
 
             $_order["pick_address_id"]  = $this->getConfigValue('pick_address_id');
             $_order["pick_tel"]         = $this->getConfigValue('pick_tel');
@@ -93,13 +93,14 @@ class Service implements ApiInterface
             // $_order["is_freeship"]      = 0;
             // $_order["total_weight"]     = 1;
 
-            if($this->_code == ShippingXfast::DELIVER_OPTION){
-                $_order["pick_money"]       = round($order->getShippingAmount());
-                $_order["pick_option"]      = "cod";
-                $_order["deliver_option"]   = $order->getShippingMethod();
-            } else{
-                $_order["pick_money"]       = 0;
-            }
+            // if($this->_code == ShippingXfast::DELIVER_OPTION){
+            //     $_order["pick_money"]       = round($order->getShippingAmount());
+            //     $_order["pick_option"]      = "cod";
+            //     $_order["deliver_option"]   = $order->getShippingMethod();
+            // } else{
+            //     $_order["pick_money"]       = 0;
+            // }
+            $_order["pick_money"]       = 0;
 
             // Các thông tin thêm
             $_order["value"]            = round($order->getShippingAmount());
