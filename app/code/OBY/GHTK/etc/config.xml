@@ -9,6 +9,8 @@
                 <title>Giao Hàng Tiết Kiệm</title>
                 <handling_type>F</handling_type>
                 <sallowspecific>0</sallowspecific>
+                <pick_address_id>0</pick_address_id>
+                <pick_tel>0</pick_tel>
                 <!-- <specificcountry>VN</specificcountry> -->
                 <token_key>5a775d9e7025d69a90b639fc3f45be7f79ffc80b</token_key>
                 <base_url>https://services.giaohangtietkiem.vn</base_url>
@@ -20,6 +22,8 @@
                 <title>Giao Hàng Tiết Kiệm</title>
                 <handling_type>F</handling_type>
                 <sallowspecific>0</sallowspecific>
+                <pick_address_id>0</pick_address_id>
+                <pick_tel>0</pick_tel>
                 <!-- <specificcountry>VN</specificcountry> -->
                 <token_key>5a775d9e7025d69a90b639fc3f45be7f79ffc80b</token_key>
                 <base_url>https://services.giaohangtietkiem.vn</base_url>
