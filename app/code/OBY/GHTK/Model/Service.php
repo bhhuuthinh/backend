@@ -80,6 +80,8 @@ class Service implements ApiInterface
 
             $_order["pick_address_id"]  = $this->getConfigValue('pick_address_id');
             $_order["pick_tel"]         = $this->getConfigValue('pick_tel');
+            $_order["pick_province"]    = "Hà Nội";
+            $_order["pick_district"]    = "Hoàn Kiếm";
 
             $_order["name"]             = $order->getShippingAddress()->getName();
             $_order["address"]          = $order->getShippingAddress()->getStreetLine(1);
