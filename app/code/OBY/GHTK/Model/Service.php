@@ -3,6 +3,7 @@
 namespace OBY\GHTK\Model;
 
 use Exception;
+use Magento\Catalog\Model\ProductRepository;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\DB\LoggerInterface;
 use Magento\Sales\Model\Order;
@@ -34,18 +35,22 @@ class Service implements ApiInterface
      */
     protected $orderRepository;
 
+    protected $productRepository;
+
     protected $_code;
 
     public function __construct(
         Request $request,
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
+        ProductRepository $productRepository
     ) {
         $this->request = $request;
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
         $this->orderRepository = $orderRepository;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -65,12 +70,17 @@ class Service implements ApiInterface
             $products   = [];
             $pick_address_id = null;
 
+            /** @var \Magento\Sales\Model\Order\Item\Interceptor $item */
             foreach($items as $item){
                 $_product['name']           = $item->getName();
                 $_product['weight']         = $item->getWeight() ?? 0.2;
                 $_product['quantity']       = round($item->getQtyOrdered(), 0);
                 $_product['product_code']   = $item->getItemId();
-                $pick_address_id            = $pick_address_id ?? $item->getProductOption()->getExtensionAttributes()['warehouse'];
+
+                if(empty($pick_address_id)){
+                    $product            = $this->productRepository->getById($item->getProductId());
+                    $pick_address_id    = $product->getCustomAttribute('warehouse')->getValue();
+                }
                 $products[] = $_product;
             }
 
@@ -103,7 +113,7 @@ class Service implements ApiInterface
 
             // Get the payment method code
             $paymentMethodCode = $payment->getMethod();
-            if($paymentMethodCode == 'cod'){
+            if($paymentMethodCode == 'cashondelivery'){
                 $_order["pick_money"]       = round($order->getShippingAmount());
                 $_order["pick_option"]      = "cod";
             } else {
