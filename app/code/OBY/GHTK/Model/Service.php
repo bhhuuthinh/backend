@@ -4,14 +4,13 @@ namespace OBY\GHTK\Model;
 
 use Exception;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DB\LoggerInterface;
 use Magento\Sales\Model\Order;
 use Magento\Framework\Webapi\Rest\Request;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use OBY\GHTK\Api\ApiInterface;
+use OBY\GHTK\Model\Carrier\Shipping;
 use OBY\GHTK\Model\Carrier\ShippingXfast;
-use stdClass;
 
 class Service implements ApiInterface
 {
@@ -93,17 +92,28 @@ class Service implements ApiInterface
             $_order["hamlet"]           = "Khác";
             $_order["tel"]              = $order->getShippingAddress()->getTelephone();
             $_order["email"]            = $order->getEmailCustomerNote();
-            // $_order["is_freeship"]      = 0;
-            // $_order["total_weight"]     = 1;
 
-            // if($this->_code == ShippingXfast::DELIVER_OPTION){
-            //     $_order["pick_money"]       = round($order->getShippingAmount());
-            //     $_order["pick_option"]      = "cod";
-            //     $_order["deliver_option"]   = $order->getShippingMethod();
-            // } else{
-            //     $_order["pick_money"]       = 0;
-            // }
-            $_order["pick_money"]       = 0;
+            $_order["is_freeship"]      = 0;
+
+            // Get the payment information
+            $payment = $order->getPayment();
+
+            // Get the payment method code
+            $paymentMethodCode = $payment->getMethod();
+            if($paymentMethodCode == 'cod'){
+                $_order["pick_money"]       = round($order->getShippingAmount());
+                $_order["pick_option"]      = "cod";
+            } else {
+                $_order["pick_money"]       = 0;
+            }
+
+            if($this->_code == 'ghtkxfast'){
+                $_order["deliver_option"]   = ShippingXfast::DELIVER_OPTION;
+            } else if ($this->_code == 'ghtk') {
+                $_order["deliver_option"]   = Shipping::DELIVER_OPTION;
+            }
+
+            // $_order["total_weight"]     = 1;
 
             // Các thông tin thêm
             $_order["value"]            = round($order->getShippingAmount());
