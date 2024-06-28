@@ -63,15 +63,18 @@ class Service implements ApiInterface
 
             $items      = $order->getItems();
             $products   = [];
+            $pick_address_id = null;
 
             foreach($items as $item){
                 $_product['name']           = $item->getName();
                 $_product['weight']         = $item->getWeight() ?? 0.2;
                 $_product['quantity']       = round($item->getQtyOrdered(), 0);
                 $_product['product_code']   = $item->getItemId();
-
+                $pick_address_id            = $pick_address_id ?? $item->getProductOption()->getExtensionAttributes()['warehouse'];
                 $products[] = $_product;
             }
+
+            $pick_address_id            = $pick_address_id ?: $this->getConfigValue('pick_address_id');
 
             $_order   = [];
             $_order["id"]               = $order->getId().'-'.time();
