@@ -114,7 +114,7 @@ class Service implements ApiInterface
             // Get the payment method code
             $paymentMethodCode = $payment->getMethod();
             if($paymentMethodCode == 'cashondelivery'){
-                $_order["pick_money"]       = round($order->getShippingAmount());
+                $_order["pick_money"]       = round($order->getGrandTotal());
                 $_order["pick_option"]      = "cod";
             } else {
                 $_order["pick_money"]       = 0;
@@ -129,7 +129,7 @@ class Service implements ApiInterface
             // $_order["total_weight"]     = 1;
 
             // Các thông tin thêm
-            $_order["value"]            = round($order->getShippingAmount());
+            $_order["value"]            = round($order->getGrandTotal());
 
             $instance   = new ApiCall($this->getConfigValue('base_url'), $this->getConfigValue('token_key'));
             $res        = $instance->ServicesCreateOrder([
