@@ -85,10 +85,7 @@ class Service implements ApiInterface
             }
 
             $pick_address_id            = $pick_address_id ?: $this->getConfigValue('pick_address_id');
-
             $goods_amount               = $order->getGrandTotal() - $order->getShippingAmount();
-
-            echo $goods_amount; die();
 
             $_order   = [];
             $_order["id"]               = $order->getId().'-'.time();
