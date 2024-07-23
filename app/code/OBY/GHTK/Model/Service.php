@@ -120,11 +120,11 @@ class Service implements ApiInterface
                 $_order["pick_money"]       = 0;
             }
 
-            if($this->_code == 'ghtkxfast'){
-                $_order["deliver_option"]   = ShippingXfast::DELIVER_OPTION;
-            } else if ($this->_code == 'ghtk') {
-                $_order["deliver_option"]   = Shipping::DELIVER_OPTION;
-            }
+            // if($this->_code == 'ghtkxfast'){
+            //     $_order["deliver_option"]   = ShippingXfast::DELIVER_OPTION;
+            // } else if ($this->_code == 'ghtk') {
+            //     $_order["deliver_option"]   = Shipping::DELIVER_OPTION;
+            // }
 
             // $_order["total_weight"]     = 1;
 
