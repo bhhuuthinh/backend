@@ -90,7 +90,7 @@ class Service implements ApiInterface
             $_order["id"]               = $order->getId().'-'.time();
             $_order["pick_name"]        = "Agriamazing";
 
-            $_order["pick_address_id"]  = $this->getConfigValue('pick_address_id');
+            $_order["pick_address_id"]  = $pick_address_id;
             $_order["pick_tel"]         = $this->getConfigValue('pick_tel');
             $_order["pick_province"]    = "Hà Nội";
             $_order["pick_district"]    = "Hoàn Kiếm";
